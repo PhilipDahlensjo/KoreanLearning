@@ -25,6 +25,8 @@ data/hangul-questions.json   Hangul questions
 data/phrases-questions.json  Everyday phrase questions
 data/grammar-questions.json  Grammar questions
 data/grammar-tips.json       Grammar tips shown in the menu
+audio/hangul/                MP3 files for the Hangul listening questions
+generate-audio.ps1           Creates the MP3 files with Google Cloud Text-to-Speech
 ```
 
 ## How to run
@@ -34,9 +36,21 @@ directly from the file system (`file://`). Use a local server instead, for examp
 
 - **VS Code:** install the *Live Server* extension, right-click `index.html` and choose *Open with Live Server*.
 
-The Hangul quiz uses the browser's built-in speech (Web Speech API) and needs a Korean voice.
-Chrome and Edge have one built in. Other browsers may need the Korean speech pack in Windows
-(Settings → Time & language → Speech).
+## Audio for the Hangul quiz
+
+The listening questions play MP3 files from `audio/hangul/`. They are created once with
+Google Cloud Text-to-Speech by the script `generate-audio.ps1`:
+
+```
+powershell -ExecutionPolicy Bypass -File .\generate-audio.ps1
+```
+
+The script asks for your Google Cloud API key (or reads the `GOOGLE_TTS_API_KEY` environment
+variable). The key is never saved in the project or sent from the website. Existing files are
+skipped; add `-Force` to create them again, or `-Voice ko-KR-Wavenet-B` to try another voice.
+
+If an audio file is missing, the quiz falls back to the browser's built-in speech
+(Web Speech API), which needs a Korean voice. Chrome and Edge have one built in.
 
 ## Question format
 
@@ -61,6 +75,7 @@ All question files use the same format:
 
 - `answer` must match one of the `options` exactly.
 - Each question needs either `korean` (text shown on screen) or `speak` (text read out loud, for listening questions).
+- Listening questions can also have `audio` and `audioSlow` (paths to the MP3 files).
 - `romanization`, `translation`, `note` and `prompt` (overrides the quiz prompt) are optional.
 
 To add a new quiz, create a new JSON file in `data/` and add it to the `QUIZZES` list at the top of `js/quiz.js`.

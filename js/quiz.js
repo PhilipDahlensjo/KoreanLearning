@@ -65,7 +65,8 @@ let currentQuiz = null;  // The quiz data loaded from the selected JSON file
 let questions = [];      // The questions for the current round, in shuffled order
 let currentIndex = 0;    // Index of the question being shown
 let score = 0;           // Number of correct answers
-let koreanVoice = null;  // A Korean voice from the browser, used for listening questions
+let koreanVoice = null;  // A Korean voice from the browser, used when an audio file is missing
+let currentAudio = null; // The audio file that is playing right now
 
 // The browser loads its voices in the background, so we look for a Korean one when they are ready
 function findKoreanVoice() {
@@ -77,12 +78,13 @@ if ("speechSynthesis" in window) {
   speechSynthesis.addEventListener("voiceschanged", findKoreanVoice);
 }
 
-// Reads the text out loud in Korean. A lower rate makes it slower.
+// Reads the text out loud with the browser's own voice. A lower rate makes it slower.
 function speak(text, rate = 1) {
+  // Warn the user if the browser has no Korean voice, since the sound will then be wrong
+  audioWarning.classList.toggle("hidden", koreanVoice !== null);
   if (!("speechSynthesis" in window)) {
     return;
   }
-  speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "ko-KR";
   if (koreanVoice) {
@@ -92,8 +94,31 @@ function speak(text, rate = 1) {
   speechSynthesis.speak(utterance);
 }
 
+// Plays the sound for a listening question. Uses the audio file from Google TTS if it
+// exists (see generate-audio.ps1), otherwise the browser's own voice.
+function playSound(question, slow = false) {
+  stopSound();
+  const file = slow ? question.audioSlow : question.audio;
+  const rate = slow ? SLOW_RATE : 1;
+
+  if (!file) {
+    speak(question.speak, rate);
+    return;
+  }
+
+  currentAudio = new Audio(file);
+  currentAudio.play().catch((error) => {
+    console.error(`Could not play ${file}, using the browser voice instead:`, error);
+    speak(question.speak, rate);
+  });
+}
+
 // Stops any sound that is still playing
-function stopSpeaking() {
+function stopSound() {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio = null;
+  }
   if ("speechSynthesis" in window) {
     speechSynthesis.cancel();
   }
@@ -111,7 +136,7 @@ function shuffle(items) {
 
 // Hides all views and shows only the given one
 function showView(view) {
-  stopSpeaking();
+  stopSound();
   [menuView, quizView, resultView].forEach((v) => v.classList.add("hidden"));
   view.classList.remove("hidden");
 }
@@ -229,7 +254,7 @@ function showQuestion() {
   translationText.textContent = question.translation ? `"${question.translation}"` : "";
 
   audioControls.classList.toggle("hidden", !isListening);
-  audioWarning.classList.toggle("hidden", !isListening || koreanVoice !== null);
+  audioWarning.classList.add("hidden");
   optionsContainer.classList.toggle("large-options", isListening);
 
   feedbackBox.classList.add("hidden");
@@ -245,7 +270,7 @@ function showQuestion() {
   });
 
   if (isListening) {
-    speak(question.speak);
+    playSound(question);
   }
 }
 
@@ -310,8 +335,8 @@ function showResult() {
 
 quitButton.addEventListener("click", () => showView(menuView));
 nextButton.addEventListener("click", nextQuestion);
-playButton.addEventListener("click", () => speak(questions[currentIndex].speak));
-slowButton.addEventListener("click", () => speak(questions[currentIndex].speak, SLOW_RATE));
+playButton.addEventListener("click", () => playSound(questions[currentIndex]));
+slowButton.addEventListener("click", () => playSound(questions[currentIndex], true));
 restartButton.addEventListener("click", startQuiz);
 menuButton.addEventListener("click", () => showView(menuView));
 
