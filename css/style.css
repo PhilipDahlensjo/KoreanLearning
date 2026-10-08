@@ -441,7 +441,7 @@ h2 {
   margin-top: 0;
 }
 
-.generate-row {
+.translate-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -451,39 +451,6 @@ h2 {
 .small-button:disabled {
   opacity: 0.6;
   cursor: default;
-}
-
-/* Gemini API key settings */
-.key-settings {
-  margin-top: 12px;
-  padding: 10px 16px;
-  border: 2px solid var(--border);
-  border-radius: var(--radius);
-  text-align: left;
-}
-
-.key-settings summary {
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.key-settings .form-help {
-  margin-top: 8px;
-}
-
-.key-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 8px 0 4px;
-}
-
-.key-row input {
-  flex: 1 1 200px;
-  padding: 8px 12px;
-  border: 2px solid var(--border);
-  border-radius: 8px;
-  font: inherit;
 }
 
 .manage-message {

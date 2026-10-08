@@ -9,7 +9,7 @@ Built with plain HTML, CSS and JavaScript (no frameworks).
   1. **Hangul** – listen to a sound and pick the right letter (with replay and slow mode)
   2. **Everyday Phrases** – useful phrases with romanization and audio
   3. **Grammar** – basic particles and verb endings, with hints, explanations and audio after answering
-- **Manage phrases**: add, edit and delete your own phrases (CRUD), with Korean generated from English by Gemini
+- **Manage phrases**: add, edit and delete your own phrases (CRUD), with automatic translation from English
 - Daily grammar tip in the menu (a new tip every day)
 - 10 random questions per round, stored in JSON files
 - Questions and answer options are shuffled every round
@@ -24,7 +24,8 @@ css/style.css                Styling
 js/quiz.js                   Quiz logic and the list of quizzes in the menu
 js/phrase-store.js           Saves, adds, edits and deletes phrases (localStorage)
 js/manage.js                 The "Manage phrases" page
-js/phrase-generator.js       Generates Korean phrases from English with the Gemini API
+js/translator.js             Translates English to Korean with the browser's built-in translator
+js/romanize.js               Romanizes Korean text (Revised Romanization)
 data/hangul-questions.json   Hangul questions
 data/phrases-questions.json  Everyday phrase questions
 data/grammar-questions.json  Grammar questions
@@ -58,16 +59,15 @@ The wrong answers for new or edited phrases are picked from the other phrases. E
 round uses 10 random questions. New phrases are read aloud with the browser's own voice,
 since `generate-audio.ps1` only knows the phrases in the JSON file.
 
-### Generate phrases with Gemini
+### Translate phrases automatically
 
-Write the meaning in English and click **✨ Generate Korean**. Google's Gemini API then fills in
-the Korean phrase, the romanization and a short explanation. Check the result before saving.
+Write the meaning in English and click **🌐 Translate to Korean**. The Korean phrase is filled in
+by the translator built into the browser (the Translator API in Chrome 138+ or Edge 148+ on a
+computer), and the romanization is worked out by `js/romanize.js`. No API key or account is
+needed. The first time, the browser downloads the Korean language model, which can take a moment.
 
-1. Create an API key in Google AI Studio (aistudio.google.com → *Get API key*).
-2. On the Manage phrases page, open **Gemini API key**, paste the key and click *Save key*.
-
-The key is saved only in your browser (`localStorage`), never in the code. The model name is set
-in `GEMINI_MODEL` at the top of `js/phrase-generator.js` and can be changed there.
+The translation can be stiff or too formal, so check it (and add an explanation if you like)
+before saving.
 
 ## Audio (Google Text-to-Speech)
 
