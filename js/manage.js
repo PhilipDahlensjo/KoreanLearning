@@ -1,5 +1,6 @@
 // The "Manage phrases" page: add, edit and delete the phrases in the Everyday Phrases quiz.
-// The data functions (getPhrases, addPhrase, ...) are in phrase-store.js.
+// The data functions (getPhrases, addPhrase, ...) are in phrase-store.js, and the
+// Gemini functions (generatePhrase, getGeminiKey, ...) are in phrase-generator.js.
 
 const manageView = document.getElementById("manage-view");
 const manageButton = document.getElementById("manage-button");
@@ -16,6 +17,12 @@ const manageMessage = document.getElementById("manage-message");
 const phraseCount = document.getElementById("phrase-count");
 const phraseList = document.getElementById("phrase-list");
 const resetButton = document.getElementById("reset-button");
+const generateButton = document.getElementById("generate-button");
+const keySettings = document.getElementById("key-settings");
+const keyStatus = document.getElementById("key-status");
+const inputKey = document.getElementById("input-key");
+const saveKeyButton = document.getElementById("save-key-button");
+const removeKeyButton = document.getElementById("remove-key-button");
 
 // The id of the phrase being edited, or null when adding a new phrase
 let editingId = null;
@@ -25,6 +32,7 @@ async function showManageView() {
   showView(manageView);
   resetForm();
   manageMessage.classList.add("hidden");
+  updateKeyStatus();
   await renderPhraseList();
 }
 
@@ -33,6 +41,72 @@ function showManageMessage(text, isError = false) {
   manageMessage.textContent = text;
   manageMessage.classList.toggle("error", isError);
   manageMessage.classList.remove("hidden");
+  manageMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+// Shows whether a Gemini API key is saved
+function updateKeyStatus() {
+  keyStatus.textContent = getGeminiKey() ? "A key is saved." : "No key saved yet.";
+  inputKey.value = "";
+}
+
+// Fills in Korean, romanization and explanation from the English meaning with Gemini
+async function generateFromEnglish() {
+  const english = inputMeaning.value.trim();
+  if (!english) {
+    showManageMessage("Write the phrase in English first.", true);
+    inputMeaning.focus();
+    return;
+  }
+  if (!getGeminiKey()) {
+    showManageMessage("Add your Gemini API key first.", true);
+    keySettings.open = true;
+    inputKey.focus();
+    return;
+  }
+
+  generateButton.disabled = true;
+  generateButton.textContent = "Generating...";
+  try {
+    const result = await generatePhrase(english);
+    inputKorean.value = result.korean;
+    inputRomanization.value = result.romanization;
+    inputNote.value = result.note;
+    showManageMessage("Generated. Check the result, then save the phrase.");
+  } catch (error) {
+    showManageMessage(error.message, true);
+  } finally {
+    generateButton.disabled = false;
+    generateButton.textContent = "✨ Generate Korean";
+  }
+}
+
+// Saves the API key typed into the key field
+function saveKey() {
+  const key = inputKey.value.trim();
+  if (!key) {
+    showManageMessage("Paste your API key in the field first.", true);
+    return;
+  }
+  try {
+    saveGeminiKey(key);
+    updateKeyStatus();
+    showManageMessage("The API key is saved in this browser.");
+  } catch (error) {
+    console.error("Could not save key:", error);
+    showManageMessage("Could not save the key. Your browser may block saving data for this page.", true);
+  }
+}
+
+// Removes the saved API key
+function removeKey() {
+  try {
+    removeGeminiKey();
+  } catch (error) {
+    console.error("Could not remove key:", error);
+  }
+  updateKeyStatus();
+  showManageMessage("The API key is removed.");
 }
 
 // Shows all phrases with an Edit and a Delete button each
@@ -196,3 +270,6 @@ manageBackButton.addEventListener("click", () => showView(menuView));
 phraseForm.addEventListener("submit", savePhraseForm);
 cancelEditButton.addEventListener("click", resetForm);
 resetButton.addEventListener("click", resetAllPhrases);
+generateButton.addEventListener("click", generateFromEnglish);
+saveKeyButton.addEventListener("click", saveKey);
+removeKeyButton.addEventListener("click", removeKey);

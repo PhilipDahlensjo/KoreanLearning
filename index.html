@@ -6,6 +6,7 @@
   <title>Korean Quiz</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/phrase-store.js" defer></script>
+  <script src="js/phrase-generator.js" defer></script>
   <script src="js/quiz.js" defer></script>
   <script src="js/manage.js" defer></script>
 </head>
@@ -44,16 +45,20 @@
       <form id="phrase-form" class="phrase-form">
         <h3 id="form-title">Add a phrase</h3>
         <label>
+          Meaning in English
+          <input id="input-meaning" type="text" required placeholder="Water, please">
+        </label>
+        <div class="generate-row">
+          <button id="generate-button" type="button" class="small-button">✨ Generate Korean</button>
+          <span class="form-help">Fills in the fields below with Gemini. Check the result before saving.</span>
+        </div>
+        <label>
           Korean
           <input id="input-korean" type="text" lang="ko" required placeholder="물 주세요">
         </label>
         <label>
           Romanization
           <input id="input-romanization" type="text" placeholder="mul juseyo">
-        </label>
-        <label>
-          Meaning in English
-          <input id="input-meaning" type="text" required placeholder="Water, please">
         </label>
         <label>
           Explanation (optional, shown after answering)
@@ -65,6 +70,20 @@
           <button id="cancel-edit-button" type="button" class="button secondary hidden">Cancel</button>
         </div>
       </form>
+
+      <!-- Gemini API key, saved only in this browser -->
+      <details id="key-settings" class="key-settings">
+        <summary>Gemini API key</summary>
+        <p class="form-help">
+          Needed for "Generate Korean". Create a key in Google AI Studio. It is saved only in this browser.
+        </p>
+        <p id="key-status" class="form-help"></p>
+        <div class="key-row">
+          <input id="input-key" type="password" autocomplete="off" placeholder="Paste your API key">
+          <button id="save-key-button" type="button" class="small-button">Save key</button>
+          <button id="remove-key-button" type="button" class="small-button danger">Remove</button>
+        </div>
+      </details>
 
       <p id="manage-message" class="manage-message hidden"></p>
       <h3 id="phrase-count"></h3>
