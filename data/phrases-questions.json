@@ -1,9 +1,10 @@
 {
-  "title": "Everyday Korean Phrases",
+  "title": "Everyday Phrases",
+  "prompt": "What does this phrase mean?",
   "questions": [
     {
       "id": 1,
-      "phrase": "안녕하세요",
+      "korean": "안녕하세요",
       "romanization": "annyeonghaseyo",
       "options": ["Hello", "Thank you", "Goodbye", "Excuse me"],
       "answer": "Hello",
@@ -11,7 +12,7 @@
     },
     {
       "id": 2,
-      "phrase": "감사합니다",
+      "korean": "감사합니다",
       "romanization": "gamsahamnida",
       "options": ["Thank you", "I'm sorry", "You're welcome", "Nice to meet you"],
       "answer": "Thank you",
@@ -19,7 +20,7 @@
     },
     {
       "id": 3,
-      "phrase": "죄송합니다",
+      "korean": "죄송합니다",
       "romanization": "joesonghamnida",
       "options": ["I'm sorry", "It's okay", "Thank you", "Please help me"],
       "answer": "I'm sorry",
@@ -27,7 +28,7 @@
     },
     {
       "id": 4,
-      "phrase": "괜찮아요",
+      "korean": "괜찮아요",
       "romanization": "gwaenchanayo",
       "options": ["It's okay", "I don't know", "How are you?", "That's expensive"],
       "answer": "It's okay",
@@ -35,7 +36,7 @@
     },
     {
       "id": 5,
-      "phrase": "처음 뵙겠습니다",
+      "korean": "처음 뵙겠습니다",
       "romanization": "cheoeum boepgetseumnida",
       "options": ["Nice to meet you", "See you later", "Welcome", "Long time no see"],
       "answer": "Nice to meet you",
@@ -43,7 +44,7 @@
     },
     {
       "id": 6,
-      "phrase": "이거 얼마예요?",
+      "korean": "이거 얼마예요?",
       "romanization": "igeo eolmayeyo?",
       "options": ["How much is this?", "What is this?", "Where is this?", "Can I have this?"],
       "answer": "How much is this?",
@@ -51,7 +52,7 @@
     },
     {
       "id": 7,
-      "phrase": "화장실이 어디예요?",
+      "korean": "화장실이 어디예요?",
       "romanization": "hwajangsiri eodiyeyo?",
       "options": ["Where is the bathroom?", "Where is the station?", "What time is it?", "Where are you from?"],
       "answer": "Where is the bathroom?",
@@ -59,7 +60,7 @@
     },
     {
       "id": 8,
-      "phrase": "잘 먹겠습니다",
+      "korean": "잘 먹겠습니다",
       "romanization": "jal meokgetseumnida",
       "options": ["Thanks for the food", "I'm full", "This is delicious", "I'm hungry"],
       "answer": "Thanks for the food",
@@ -67,7 +68,7 @@
     },
     {
       "id": 9,
-      "phrase": "안녕히 가세요",
+      "korean": "안녕히 가세요",
       "romanization": "annyeonghi gaseyo",
       "options": ["Goodbye", "Hello", "Good night", "See you tomorrow"],
       "answer": "Goodbye",
@@ -75,7 +76,7 @@
     },
     {
       "id": 10,
-      "phrase": "다시 한번 말해 주세요",
+      "korean": "다시 한번 말해 주세요",
       "romanization": "dasi hanbeon malhae juseyo",
       "options": ["Please say that again", "Please speak slowly", "I don't understand", "Please write it down"],
       "answer": "Please say that again",

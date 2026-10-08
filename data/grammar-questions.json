@@ -1,0 +1,88 @@
+{
+  "title": "Grammar",
+  "prompt": "Which option completes the sentence?",
+  "questions": [
+    {
+      "id": 1,
+      "korean": "저___ 학생이에요.",
+      "translation": "I am a student.",
+      "options": ["는", "은", "이", "를"],
+      "answer": "는",
+      "note": "는 marks the topic after a vowel. After a consonant you use 은."
+    },
+    {
+      "id": 2,
+      "korean": "책___ 있어요.",
+      "translation": "I have a book.",
+      "options": ["이", "가", "를", "에"],
+      "answer": "이",
+      "note": "이 marks the subject after a consonant. After a vowel you use 가."
+    },
+    {
+      "id": 3,
+      "korean": "물___ 마셔요.",
+      "translation": "I drink water.",
+      "options": ["을", "를", "이", "에"],
+      "answer": "을",
+      "note": "을 marks the object after a consonant. After a vowel you use 를."
+    },
+    {
+      "id": 4,
+      "korean": "커피___ 좋아해요.",
+      "translation": "I like coffee.",
+      "options": ["를", "을", "가", "에"],
+      "answer": "를",
+      "note": "를 marks the object after a vowel. After a consonant you use 을."
+    },
+    {
+      "id": 5,
+      "korean": "학교___ 가요.",
+      "translation": "I go to school.",
+      "options": ["에", "이", "은", "과"],
+      "answer": "에",
+      "note": "에 marks the place you are going to."
+    },
+    {
+      "id": 6,
+      "korean": "도서관___ 공부해요.",
+      "translation": "I study at the library.",
+      "options": ["에서", "에", "를", "가"],
+      "answer": "에서",
+      "note": "에서 marks the place where an action happens."
+    },
+    {
+      "id": 7,
+      "korean": "이것은 사과___.",
+      "translation": "This is an apple.",
+      "options": ["예요", "이에요", "있어요", "해요"],
+      "answer": "예요",
+      "note": "\"To be\" is 예요 after a vowel and 이에요 after a consonant."
+    },
+    {
+      "id": 8,
+      "korean": "저는 선생님___.",
+      "translation": "I am a teacher.",
+      "options": ["이에요", "예요", "이요", "있어요"],
+      "answer": "이에요",
+      "note": "선생님 ends in a consonant (ㅁ), so you use 이에요."
+    },
+    {
+      "id": 9,
+      "prompt": "Which is the polite present tense?",
+      "korean": "가다 → ___",
+      "translation": "to go → I go",
+      "options": ["가요", "가아요", "가어요", "갔어요"],
+      "answer": "가요",
+      "note": "When the verb stem ends in ㅏ, 아요 merges with it: 가 + 아요 = 가요. 갔어요 is the past tense."
+    },
+    {
+      "id": 10,
+      "prompt": "Which is the polite past tense?",
+      "korean": "먹다 → ___",
+      "translation": "to eat → I ate",
+      "options": ["먹었어요", "먹어요", "먹았어요", "먹을 거예요"],
+      "answer": "먹었어요",
+      "note": "먹 does not have ㅏ or ㅗ, so it takes 었어요. 먹어요 is present tense and 먹을 거예요 is future."
+    }
+  ]
+}

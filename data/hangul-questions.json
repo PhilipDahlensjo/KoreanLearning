@@ -1,0 +1,76 @@
+{
+  "title": "Hangul",
+  "prompt": "What sound does this letter make?",
+  "questions": [
+    {
+      "id": 1,
+      "korean": "ㄱ",
+      "options": ["g/k", "d/t", "b/p", "n"],
+      "answer": "g/k",
+      "note": "Somewhere between g and k. At the end of a syllable it sounds more like k."
+    },
+    {
+      "id": 2,
+      "korean": "ㄴ",
+      "options": ["n", "m", "r/l", "g/k"],
+      "answer": "n",
+      "note": "Sounds like the n in \"no\"."
+    },
+    {
+      "id": 3,
+      "korean": "ㄹ",
+      "options": ["r/l", "n", "d/t", "h"],
+      "answer": "r/l",
+      "note": "Sounds like a soft r between vowels and like l at the end of a syllable."
+    },
+    {
+      "id": 4,
+      "korean": "ㅁ",
+      "options": ["m", "n", "b/p", "s"],
+      "answer": "m",
+      "note": "Sounds like the m in \"mom\"."
+    },
+    {
+      "id": 5,
+      "korean": "ㅅ",
+      "options": ["s", "j", "h", "ch"],
+      "answer": "s",
+      "note": "Sounds like s. Before ㅣ (i) it sounds more like sh, as in 시 (si)."
+    },
+    {
+      "id": 6,
+      "korean": "ㅇ",
+      "options": ["silent / ng", "n", "m", "h"],
+      "answer": "silent / ng",
+      "note": "Silent at the start of a syllable, as in 아 (a). At the end it sounds like ng, as in 방 (bang)."
+    },
+    {
+      "id": 7,
+      "korean": "ㅏ",
+      "options": ["a", "eo", "o", "i"],
+      "answer": "a",
+      "note": "Sounds like the a in \"father\"."
+    },
+    {
+      "id": 8,
+      "korean": "ㅓ",
+      "options": ["eo", "a", "u", "eu"],
+      "answer": "eo",
+      "note": "Sounds like the o in \"son\"."
+    },
+    {
+      "id": 9,
+      "korean": "ㅗ",
+      "options": ["o", "u", "eo", "a"],
+      "answer": "o",
+      "note": "Sounds like the o in \"go\", but shorter."
+    },
+    {
+      "id": 10,
+      "korean": "ㅜ",
+      "options": ["u", "o", "eu", "i"],
+      "answer": "u",
+      "note": "Sounds like the oo in \"moon\"."
+    }
+  ]
+}
