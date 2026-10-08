@@ -6,7 +6,7 @@ Built with plain HTML, CSS and JavaScript (no frameworks).
 ## Features
 
 - Start menu with three quizzes:
-  1. **Hangul** – the sounds of the Korean letters
+  1. **Hangul** – listen to a sound and pick the right letter (with replay and slow mode)
   2. **Everyday Phrases** – useful phrases with romanization
   3. **Grammar** – basic particles and verb endings
 - Daily grammar tip in the menu (a new tip every day)
@@ -34,6 +34,10 @@ directly from the file system (`file://`). Use a local server instead, for examp
 
 - **VS Code:** install the *Live Server* extension, right-click `index.html` and choose *Open with Live Server*.
 
+The Hangul quiz uses the browser's built-in speech (Web Speech API) and needs a Korean voice.
+Chrome and Edge have one built in. Other browsers may need the Korean speech pack in Windows
+(Settings → Time & language → Speech).
+
 ## Question format
 
 All question files use the same format:
@@ -56,6 +60,7 @@ All question files use the same format:
 ```
 
 - `answer` must match one of the `options` exactly.
+- Each question needs either `korean` (text shown on screen) or `speak` (text read out loud, for listening questions).
 - `romanization`, `translation`, `note` and `prompt` (overrides the quiz prompt) are optional.
 
 To add a new quiz, create a new JSON file in `data/` and add it to the `QUIZZES` list at the top of `js/quiz.js`.

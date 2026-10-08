@@ -2,7 +2,7 @@
 const QUIZZES = [
   {
     title: "Hangul",
-    description: "Learn the sounds of the Korean letters.",
+    description: "Listen and pick the letter you hear.",
     file: "data/hangul-questions.json",
   },
   {
@@ -19,6 +19,9 @@ const QUIZZES = [
 
 // File with the grammar tips shown in the menu
 const TIPS_URL = "data/grammar-tips.json";
+
+// Speech speed for the turtle button (1 is normal speed)
+const SLOW_RATE = 0.5;
 
 // Views
 const menuView = document.getElementById("menu-view");
@@ -38,6 +41,10 @@ const quitButton = document.getElementById("quit-button");
 const progressText = document.getElementById("progress");
 const promptText = document.getElementById("prompt");
 const koreanText = document.getElementById("korean");
+const audioControls = document.getElementById("audio-controls");
+const playButton = document.getElementById("play-button");
+const slowButton = document.getElementById("slow-button");
+const audioWarning = document.getElementById("audio-warning");
 const romanizationText = document.getElementById("romanization");
 const translationText = document.getElementById("translation");
 const optionsContainer = document.getElementById("options");
@@ -58,6 +65,39 @@ let currentQuiz = null;  // The quiz data loaded from the selected JSON file
 let questions = [];      // The questions for the current round, in shuffled order
 let currentIndex = 0;    // Index of the question being shown
 let score = 0;           // Number of correct answers
+let koreanVoice = null;  // A Korean voice from the browser, used for listening questions
+
+// The browser loads its voices in the background, so we look for a Korean one when they are ready
+function findKoreanVoice() {
+  koreanVoice = speechSynthesis.getVoices().find((voice) => voice.lang.startsWith("ko")) || null;
+}
+
+if ("speechSynthesis" in window) {
+  findKoreanVoice();
+  speechSynthesis.addEventListener("voiceschanged", findKoreanVoice);
+}
+
+// Reads the text out loud in Korean. A lower rate makes it slower.
+function speak(text, rate = 1) {
+  if (!("speechSynthesis" in window)) {
+    return;
+  }
+  speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "ko-KR";
+  if (koreanVoice) {
+    utterance.voice = koreanVoice;
+  }
+  utterance.rate = rate;
+  speechSynthesis.speak(utterance);
+}
+
+// Stops any sound that is still playing
+function stopSpeaking() {
+  if ("speechSynthesis" in window) {
+    speechSynthesis.cancel();
+  }
+}
 
 // Returns a new array with the items in random order (Fisher-Yates shuffle)
 function shuffle(items) {
@@ -71,6 +111,7 @@ function shuffle(items) {
 
 // Hides all views and shows only the given one
 function showView(view) {
+  stopSpeaking();
   [menuView, quizView, resultView].forEach((v) => v.classList.add("hidden"));
   view.classList.remove("hidden");
 }
@@ -180,10 +221,16 @@ function showQuestion() {
   progressText.textContent = `${currentQuiz.title} · Question ${currentIndex + 1} of ${questions.length}`;
   // A question can have its own prompt, otherwise the quiz's prompt is used
   promptText.textContent = question.prompt || currentQuiz.prompt;
-  koreanText.textContent = question.korean;
+  // Listening questions have a "speak" text that is played instead of showing Korean text
+  const isListening = Boolean(question.speak);
+  koreanText.textContent = isListening ? "" : question.korean;
   // Romanization and translation are optional and hidden by CSS when empty
   romanizationText.textContent = question.romanization || "";
   translationText.textContent = question.translation ? `"${question.translation}"` : "";
+
+  audioControls.classList.toggle("hidden", !isListening);
+  audioWarning.classList.toggle("hidden", !isListening || koreanVoice !== null);
+  optionsContainer.classList.toggle("large-options", isListening);
 
   feedbackBox.classList.add("hidden");
   nextButton.classList.add("hidden");
@@ -196,6 +243,10 @@ function showQuestion() {
     button.addEventListener("click", () => checkAnswer(button, question));
     optionsContainer.appendChild(button);
   });
+
+  if (isListening) {
+    speak(question.speak);
+  }
 }
 
 // Checks the selected answer and shows right/wrong feedback directly
@@ -259,6 +310,8 @@ function showResult() {
 
 quitButton.addEventListener("click", () => showView(menuView));
 nextButton.addEventListener("click", nextQuestion);
+playButton.addEventListener("click", () => speak(questions[currentIndex].speak));
+slowButton.addEventListener("click", () => speak(questions[currentIndex].speak, SLOW_RATE));
 restartButton.addEventListener("click", startQuiz);
 menuButton.addEventListener("click", () => showView(menuView));
 

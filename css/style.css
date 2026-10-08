@@ -247,9 +247,48 @@ h2 {
 }
 
 /* Optional texts are hidden when a question does not use them */
+.korean:empty,
 .romanization:empty,
 .translation:empty {
   display: none;
+}
+
+/* Play and slow buttons for listening questions */
+.audio-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.audio-button {
+  padding: 12px 20px;
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--primary);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.audio-button:hover {
+  background: var(--background);
+}
+
+.audio-warning {
+  color: var(--wrong);
+  font-size: 0.9rem;
+}
+
+/* Bigger answer buttons when the options are single Korean letters */
+.options.large-options {
+  grid-template-columns: 1fr 1fr;
+}
+
+.large-options .option {
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .romanization {

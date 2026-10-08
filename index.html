@@ -36,6 +36,14 @@
       </div>
       <p id="prompt" class="prompt"></p>
       <p id="korean" class="korean" lang="ko"></p>
+      <!-- Audio controls: only shown for listening questions -->
+      <div id="audio-controls" class="audio-controls hidden">
+        <button id="play-button" class="audio-button" title="Play the sound again">🔊 Play again</button>
+        <button id="slow-button" class="audio-button" title="Play the sound slowly">🐢 Slower</button>
+      </div>
+      <p id="audio-warning" class="audio-warning hidden">
+        No Korean voice was found in this browser, so the sound may be wrong. Try Chrome or Edge.
+      </p>
       <p id="romanization" class="romanization"></p>
       <p id="translation" class="translation"></p>
       <div id="options" class="options"></div>
