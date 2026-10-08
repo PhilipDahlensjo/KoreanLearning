@@ -94,22 +94,29 @@ function speak(text, rate = 1) {
   speechSynthesis.speak(utterance);
 }
 
-// Plays the sound for a listening question. Uses the audio file from Google TTS if it
-// exists (see generate-audio.ps1), otherwise the browser's own voice.
+// Returns true if the question has a sound that can be played
+function hasSound(question) {
+  return Boolean(question.speak || question.audio);
+}
+
+// Plays the sound for a question. Uses the audio file from Google TTS if it exists
+// (see generate-audio.ps1), otherwise the browser's own voice.
 function playSound(question, slow = false) {
   stopSound();
   const file = slow ? question.audioSlow : question.audio;
   const rate = slow ? SLOW_RATE : 1;
+  // Listening questions have their own "speak" text, other questions read the Korean text
+  const text = question.speak || question.korean;
 
   if (!file) {
-    speak(question.speak, rate);
+    speak(text, rate);
     return;
   }
 
   currentAudio = new Audio(file);
   currentAudio.play().catch((error) => {
     console.error(`Could not play ${file}, using the browser voice instead:`, error);
-    speak(question.speak, rate);
+    speak(text, rate);
   });
 }
 
@@ -246,14 +253,14 @@ function showQuestion() {
   progressText.textContent = `${currentQuiz.title} · Question ${currentIndex + 1} of ${questions.length}`;
   // A question can have its own prompt, otherwise the quiz's prompt is used
   promptText.textContent = question.prompt || currentQuiz.prompt;
-  // Listening questions have a "speak" text that is played instead of showing Korean text
-  const isListening = Boolean(question.speak);
-  koreanText.textContent = isListening ? "" : question.korean;
+  // Listening questions only have a sound and no Korean text on screen
+  const isListening = !question.korean;
+  koreanText.textContent = question.korean || "";
   // Romanization and translation are optional and hidden by CSS when empty
   romanizationText.textContent = question.romanization || "";
   translationText.textContent = question.translation ? `"${question.translation}"` : "";
 
-  audioControls.classList.toggle("hidden", !isListening);
+  audioControls.classList.toggle("hidden", !hasSound(question));
   audioWarning.classList.add("hidden");
   optionsContainer.classList.toggle("large-options", isListening);
 
@@ -269,7 +276,7 @@ function showQuestion() {
     optionsContainer.appendChild(button);
   });
 
-  if (isListening) {
+  if (hasSound(question)) {
     playSound(question);
   }
 }

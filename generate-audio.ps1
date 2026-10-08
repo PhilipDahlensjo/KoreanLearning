@@ -1,5 +1,6 @@
-# Creates the MP3 files for the listening questions with Google Cloud Text-to-Speech.
-# Run it once, and again after adding new listening questions.
+# Creates the MP3 files for the quiz questions with Google Cloud Text-to-Speech.
+# It goes through all question files in data/ and creates a file for every
+# question that has "audio" or "audioSlow". Run it again after adding questions.
 #
 # Usage (in the project folder):
 #   powershell -ExecutionPolicy Bypass -File .\generate-audio.ps1
@@ -9,7 +10,6 @@
 # Files that already exist are skipped. Use -Force to create them again.
 
 param(
-  [string]$QuestionsFile = "data/hangul-questions.json",
   [string]$Voice = "ko-KR-Wavenet-A",
   [double]$SlowRate = 0.6,
   [switch]$Force
@@ -52,17 +52,23 @@ function Save-Speech([string]$Text, [double]$Rate, [string]$RelativePath) {
   Write-Host "Created $RelativePath"
 }
 
-$quiz = Get-Content (Join-Path $PSScriptRoot $QuestionsFile) -Raw -Encoding UTF8 | ConvertFrom-Json
+$questionFiles = Get-ChildItem (Join-Path $PSScriptRoot "data") -Filter "*-questions.json"
 
-foreach ($question in $quiz.questions) {
-  if (-not $question.speak) {
-    continue
-  }
-  if ($question.audio) {
-    Save-Speech $question.speak 1.0 $question.audio
-  }
-  if ($question.audioSlow) {
-    Save-Speech $question.speak $SlowRate $question.audioSlow
+foreach ($file in $questionFiles) {
+  $quiz = Get-Content $file.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
+
+  foreach ($question in $quiz.questions) {
+    # Listening questions have their own "speak" text, other questions read the Korean text
+    $text = if ($question.speak) { $question.speak } else { $question.korean }
+    if (-not $text) {
+      continue
+    }
+    if ($question.audio) {
+      Save-Speech $text 1.0 $question.audio
+    }
+    if ($question.audioSlow) {
+      Save-Speech $text $SlowRate $question.audioSlow
+    }
   }
 }
 

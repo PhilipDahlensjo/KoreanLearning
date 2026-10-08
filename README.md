@@ -7,7 +7,7 @@ Built with plain HTML, CSS and JavaScript (no frameworks).
 
 - Start menu with three quizzes:
   1. **Hangul** – listen to a sound and pick the right letter (with replay and slow mode)
-  2. **Everyday Phrases** – useful phrases with romanization
+  2. **Everyday Phrases** – useful phrases with romanization and audio
   3. **Grammar** – basic particles and verb endings
 - Daily grammar tip in the menu (a new tip every day)
 - 10 questions per quiz, stored in JSON files
@@ -25,7 +25,7 @@ data/hangul-questions.json   Hangul questions
 data/phrases-questions.json  Everyday phrase questions
 data/grammar-questions.json  Grammar questions
 data/grammar-tips.json       Grammar tips shown in the menu
-audio/hangul/                MP3 files for the Hangul listening questions
+audio/                       MP3 files for the Hangul and phrase questions
 generate-audio.ps1           Creates the MP3 files with Google Cloud Text-to-Speech
 ```
 
@@ -36,9 +36,9 @@ directly from the file system (`file://`). Use a local server instead, for examp
 
 - **VS Code:** install the *Live Server* extension, right-click `index.html` and choose *Open with Live Server*.
 
-## Audio for the Hangul quiz
+## Audio (Google Text-to-Speech)
 
-The listening questions play MP3 files from `audio/hangul/`. They are created once with
+The Hangul and Everyday Phrases quizzes play MP3 files from `audio/`. They are created once with
 Google Cloud Text-to-Speech by the script `generate-audio.ps1`:
 
 ```
@@ -75,7 +75,7 @@ All question files use the same format:
 
 - `answer` must match one of the `options` exactly.
 - Each question needs either `korean` (text shown on screen) or `speak` (text read out loud, for listening questions).
-- Listening questions can also have `audio` and `audioSlow` (paths to the MP3 files).
+- Questions can have `audio` and `audioSlow` (paths to MP3 files) to show the play and slow buttons.
 - `romanization`, `translation`, `note` and `prompt` (overrides the quiz prompt) are optional.
 
 To add a new quiz, create a new JSON file in `data/` and add it to the `QUIZZES` list at the top of `js/quiz.js`.
