@@ -1,19 +1,38 @@
-// Path to the file that contains all questions
-const QUESTIONS_URL = "data/phrases-questions.json";
+// Quizzes shown in the menu. Each quiz has its own question file.
+const QUIZZES = [
+  {
+    title: "Hangul",
+    description: "Learn the sounds of the Korean letters.",
+    file: "data/hangul-questions.json",
+  },
+  {
+    title: "Everyday Phrases",
+    description: "Useful phrases for daily life in Korea.",
+    file: "data/phrases-questions.json",
+  },
+  {
+    title: "Grammar",
+    description: "Basic particles and verb endings.",
+    file: "data/grammar-questions.json",
+  },
+];
 
 // Views
-const startView = document.getElementById("start-view");
+const menuView = document.getElementById("menu-view");
 const quizView = document.getElementById("quiz-view");
 const resultView = document.getElementById("result-view");
 
-// Start view elements
-const startButton = document.getElementById("start-button");
+// Menu view elements
+const menuContainer = document.getElementById("menu");
 const errorMessage = document.getElementById("error-message");
 
 // Quiz view elements
+const quitButton = document.getElementById("quit-button");
 const progressText = document.getElementById("progress");
-const phraseText = document.getElementById("phrase");
+const promptText = document.getElementById("prompt");
+const koreanText = document.getElementById("korean");
 const romanizationText = document.getElementById("romanization");
+const translationText = document.getElementById("translation");
 const optionsContainer = document.getElementById("options");
 const feedbackBox = document.getElementById("feedback");
 const feedbackText = document.getElementById("feedback-text");
@@ -21,12 +40,14 @@ const feedbackNote = document.getElementById("feedback-note");
 const nextButton = document.getElementById("next-button");
 
 // Result view elements
+const resultTitle = document.getElementById("result-title");
 const scoreText = document.getElementById("score");
 const resultMessage = document.getElementById("result-message");
 const restartButton = document.getElementById("restart-button");
+const menuButton = document.getElementById("menu-button");
 
 // Quiz state
-let allQuestions = [];   // All questions loaded from the JSON file
+let currentQuiz = null;  // The quiz data loaded from the selected JSON file
 let questions = [];      // The questions for the current round, in shuffled order
 let currentIndex = 0;    // Index of the question being shown
 let score = 0;           // Number of correct answers
@@ -43,33 +64,61 @@ function shuffle(items) {
 
 // Hides all views and shows only the given one
 function showView(view) {
-  [startView, quizView, resultView].forEach((v) => v.classList.add("hidden"));
+  [menuView, quizView, resultView].forEach((v) => v.classList.add("hidden"));
   view.classList.remove("hidden");
 }
 
-// Loads the questions from the JSON file and enables the start button
-async function loadQuestions() {
+// Creates one menu button per quiz
+function createMenu() {
+  QUIZZES.forEach((quiz, index) => {
+    const button = document.createElement("button");
+    button.className = "menu-option";
+
+    const title = document.createElement("span");
+    title.className = "menu-title";
+    title.textContent = `${index + 1}. ${quiz.title}`;
+
+    const description = document.createElement("span");
+    description.className = "menu-description";
+    description.textContent = quiz.description;
+
+    button.append(title, description);
+    button.addEventListener("click", () => loadQuiz(quiz));
+    menuContainer.appendChild(button);
+  });
+}
+
+// Enables or disables all menu buttons (used while a quiz is loading)
+function setMenuDisabled(disabled) {
+  for (const button of menuContainer.children) {
+    button.disabled = disabled;
+  }
+}
+
+// Loads the questions for the selected quiz from its JSON file and starts it
+async function loadQuiz(quiz) {
+  errorMessage.classList.add("hidden");
+  setMenuDisabled(true);
   try {
-    const response = await fetch(QUESTIONS_URL);
+    const response = await fetch(quiz.file);
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`);
     }
-    const data = await response.json();
-    allQuestions = data.questions;
-    startButton.disabled = false;
-    startButton.textContent = "Start quiz";
+    currentQuiz = await response.json();
+    startQuiz();
   } catch (error) {
     console.error("Could not load questions:", error);
-    startButton.textContent = "Start quiz";
     errorMessage.textContent =
       "Could not load the questions. Make sure the page is opened through a local server (for example Live Server in VS Code).";
     errorMessage.classList.remove("hidden");
+  } finally {
+    setMenuDisabled(false);
   }
 }
 
 // Resets the state and starts a new round with shuffled questions
 function startQuiz() {
-  questions = shuffle(allQuestions);
+  questions = shuffle(currentQuiz.questions);
   currentIndex = 0;
   score = 0;
   showView(quizView);
@@ -80,9 +129,13 @@ function startQuiz() {
 function showQuestion() {
   const question = questions[currentIndex];
 
-  progressText.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
-  phraseText.textContent = question.phrase;
-  romanizationText.textContent = question.romanization;
+  progressText.textContent = `${currentQuiz.title} · Question ${currentIndex + 1} of ${questions.length}`;
+  // A question can have its own prompt, otherwise the quiz's prompt is used
+  promptText.textContent = question.prompt || currentQuiz.prompt;
+  koreanText.textContent = question.korean;
+  // Romanization and translation are optional and hidden by CSS when empty
+  romanizationText.textContent = question.romanization || "";
+  translationText.textContent = question.translation ? `"${question.translation}"` : "";
 
   feedbackBox.classList.add("hidden");
   nextButton.classList.add("hidden");
@@ -140,12 +193,13 @@ function nextQuestion() {
 // Shows the final score and a short message based on the percentage
 function showResult() {
   const percent = Math.round((score / questions.length) * 100);
+  resultTitle.textContent = `Your result: ${currentQuiz.title}`;
   scoreText.textContent = `${score} / ${questions.length} (${percent}%)`;
 
   if (percent === 100) {
     resultMessage.textContent = "Perfect! 잘했어요! (Well done!)";
   } else if (percent >= 70) {
-    resultMessage.textContent = "Great job! You know most of the phrases.";
+    resultMessage.textContent = "Great job! You know most of these.";
   } else if (percent >= 40) {
     resultMessage.textContent = "Good start! Try again to learn the rest.";
   } else {
@@ -155,8 +209,9 @@ function showResult() {
   showView(resultView);
 }
 
-startButton.addEventListener("click", startQuiz);
+quitButton.addEventListener("click", () => showView(menuView));
 nextButton.addEventListener("click", nextQuestion);
 restartButton.addEventListener("click", startQuiz);
+menuButton.addEventListener("click", () => showView(menuView));
 
-loadQuestions();
+createMenu();

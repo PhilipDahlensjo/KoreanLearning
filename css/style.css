@@ -74,11 +74,89 @@ h2 {
   cursor: default;
 }
 
+/* Lighter button style, used for "Back to menu" */
+.button.secondary {
+  background: var(--card);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.button.secondary:hover {
+  background: var(--background);
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
 .error {
   color: var(--wrong);
 }
 
+/* Menu view */
+.menu {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.menu-option {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 20px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-option:hover:not(:disabled) {
+  border-color: var(--primary);
+}
+
+.menu-option:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.menu-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.menu-description {
+  color: var(--muted);
+}
+
 /* Quiz view */
+.quiz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.link-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--primary);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
 .progress {
   margin: 0;
   color: var(--muted);
@@ -90,10 +168,21 @@ h2 {
   font-weight: 600;
 }
 
-.phrase {
+.korean {
   margin: 0;
   font-size: 2.25rem;
   font-weight: 700;
+}
+
+.translation {
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+/* Optional texts are hidden when a question does not use them */
+.romanization:empty,
+.translation:empty {
+  display: none;
 }
 
 .romanization {

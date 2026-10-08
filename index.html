@@ -3,26 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Korean Phrase Quiz</title>
+  <title>Korean Quiz</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/quiz.js" defer></script>
 </head>
 <body>
   <main class="container">
-    <!-- Start view: shown when the page loads -->
-    <section id="start-view" class="view">
-      <h1>Korean Phrase Quiz</h1>
-      <p>Learn useful everyday Korean phrases. For each phrase, pick the correct meaning.</p>
-      <button id="start-button" class="button" disabled>Loading...</button>
+    <!-- Menu view: shown when the page loads, lets the user pick a quiz -->
+    <section id="menu-view" class="view">
+      <h1>Learn Korean</h1>
+      <p>Choose a quiz to start.</p>
+      <div id="menu" class="menu"></div>
       <p id="error-message" class="error hidden"></p>
     </section>
 
     <!-- Quiz view: shows one question at a time -->
     <section id="quiz-view" class="view hidden">
-      <p id="progress" class="progress"></p>
-      <p class="prompt">What does this phrase mean?</p>
-      <p id="phrase" class="phrase" lang="ko"></p>
+      <div class="quiz-header">
+        <button id="quit-button" class="link-button">&larr; Menu</button>
+        <p id="progress" class="progress"></p>
+      </div>
+      <p id="prompt" class="prompt"></p>
+      <p id="korean" class="korean" lang="ko"></p>
       <p id="romanization" class="romanization"></p>
+      <p id="translation" class="translation"></p>
       <div id="options" class="options"></div>
       <div id="feedback" class="feedback hidden">
         <p id="feedback-text" class="feedback-text"></p>
@@ -33,10 +37,13 @@
 
     <!-- Result view: shown when all questions are answered -->
     <section id="result-view" class="view hidden">
-      <h2>Your result</h2>
+      <h2 id="result-title"></h2>
       <p id="score" class="score"></p>
       <p id="result-message"></p>
-      <button id="restart-button" class="button">Try again</button>
+      <div class="button-row">
+        <button id="restart-button" class="button">Try again</button>
+        <button id="menu-button" class="button secondary">Back to menu</button>
+      </div>
     </section>
   </main>
 </body>
