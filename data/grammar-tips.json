@@ -1,0 +1,69 @@
+{
+  "tips": [
+    {
+      "title": "Word order",
+      "text": "The verb always comes last in a Korean sentence: subject, object, verb.",
+      "examples": [
+        { "korean": "저는 커피를 마셔요.", "english": "I drink coffee." }
+      ]
+    },
+    {
+      "title": "Topic particle 은/는",
+      "text": "은/는 marks what the sentence is about. Use 는 after a vowel and 은 after a consonant.",
+      "examples": [
+        { "korean": "저는 학생이에요.", "english": "I am a student." },
+        { "korean": "선생님은 한국 사람이에요.", "english": "The teacher is Korean." }
+      ]
+    },
+    {
+      "title": "Subject particle 이/가",
+      "text": "이/가 marks the subject, often with 있어요 (there is / to have). Use 가 after a vowel and 이 after a consonant.",
+      "examples": [
+        { "korean": "책이 있어요.", "english": "I have a book." },
+        { "korean": "시간이 없어요.", "english": "I don't have time." }
+      ]
+    },
+    {
+      "title": "Object particle 을/를",
+      "text": "을/를 marks the object, the thing the action is done to. Use 를 after a vowel and 을 after a consonant.",
+      "examples": [
+        { "korean": "물을 마셔요.", "english": "I drink water." },
+        { "korean": "커피를 좋아해요.", "english": "I like coffee." }
+      ]
+    },
+    {
+      "title": "에 or 에서?",
+      "text": "에 marks where you are going or where something is. 에서 marks where an action happens.",
+      "examples": [
+        { "korean": "학교에 가요.", "english": "I go to school." },
+        { "korean": "학교에서 공부해요.", "english": "I study at school." }
+      ]
+    },
+    {
+      "title": "\"To be\": 예요/이에요",
+      "text": "Add 예요 after a word that ends in a vowel and 이에요 after a word that ends in a consonant.",
+      "examples": [
+        { "korean": "사과예요.", "english": "It is an apple." },
+        { "korean": "선생님이에요.", "english": "I am a teacher." }
+      ]
+    },
+    {
+      "title": "Polite present tense",
+      "text": "Remove 다 from the verb. If the last vowel is ㅏ or ㅗ, add 아요. Otherwise add 어요. 하다 verbs become 해요.",
+      "examples": [
+        { "korean": "가다 → 가요", "english": "to go → I go" },
+        { "korean": "먹다 → 먹어요", "english": "to eat → I eat" },
+        { "korean": "공부하다 → 공부해요", "english": "to study → I study" }
+      ]
+    },
+    {
+      "title": "Polite past tense",
+      "text": "Remove 다 from the verb. If the last vowel is ㅏ or ㅗ, add 았어요. Otherwise add 었어요. 하다 verbs become 했어요.",
+      "examples": [
+        { "korean": "가다 → 갔어요", "english": "to go → I went" },
+        { "korean": "먹다 → 먹었어요", "english": "to eat → I ate" },
+        { "korean": "공부하다 → 공부했어요", "english": "to study → I studied" }
+      ]
+    }
+  ]
+}

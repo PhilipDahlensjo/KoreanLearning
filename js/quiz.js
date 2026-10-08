@@ -17,6 +17,9 @@ const QUIZZES = [
   },
 ];
 
+// File with the grammar tips shown in the menu
+const TIPS_URL = "data/grammar-tips.json";
+
 // Views
 const menuView = document.getElementById("menu-view");
 const quizView = document.getElementById("quiz-view");
@@ -25,6 +28,10 @@ const resultView = document.getElementById("result-view");
 // Menu view elements
 const menuContainer = document.getElementById("menu");
 const errorMessage = document.getElementById("error-message");
+const dailyTip = document.getElementById("daily-tip");
+const tipTitle = document.getElementById("tip-title");
+const tipText = document.getElementById("tip-text");
+const tipExamples = document.getElementById("tip-examples");
 
 // Quiz view elements
 const quitButton = document.getElementById("quit-button");
@@ -86,6 +93,47 @@ function createMenu() {
     button.addEventListener("click", () => loadQuiz(quiz));
     menuContainer.appendChild(button);
   });
+}
+
+// Returns an index that stays the same for the whole day and moves on by one each new day
+function getDailyIndex(count) {
+  const now = new Date();
+  const todayAtMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const dayNumber = Math.floor(todayAtMidnight.getTime() / (24 * 60 * 60 * 1000));
+  return dayNumber % count;
+}
+
+// Loads the grammar tips and shows today's tip in the menu
+async function loadDailyTip() {
+  try {
+    const response = await fetch(TIPS_URL);
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+    const data = await response.json();
+    const tip = data.tips[getDailyIndex(data.tips.length)];
+
+    tipTitle.textContent = tip.title;
+    tipText.textContent = tip.text;
+    tipExamples.innerHTML = "";
+    tip.examples.forEach((example) => {
+      const korean = document.createElement("p");
+      korean.className = "tip-korean";
+      korean.lang = "ko";
+      korean.textContent = example.korean;
+
+      const english = document.createElement("p");
+      english.className = "tip-english";
+      english.textContent = example.english;
+
+      tipExamples.append(korean, english);
+    });
+
+    dailyTip.classList.remove("hidden");
+  } catch (error) {
+    // The tip is a bonus, so the menu still works if it cannot be loaded
+    console.error("Could not load grammar tips:", error);
+  }
 }
 
 // Enables or disables all menu buttons (used while a quiz is loading)
@@ -215,3 +263,4 @@ restartButton.addEventListener("click", startQuiz);
 menuButton.addEventListener("click", () => showView(menuView));
 
 createMenu();
+loadDailyTip();

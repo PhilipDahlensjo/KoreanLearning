@@ -9,6 +9,7 @@ Built with plain HTML, CSS and JavaScript (no frameworks).
   1. **Hangul** – the sounds of the Korean letters
   2. **Everyday Phrases** – useful phrases with romanization
   3. **Grammar** – basic particles and verb endings
+- Daily grammar tip in the menu (a new tip every day)
 - 10 questions per quiz, stored in JSON files
 - Questions and answer options are shuffled every round
 - Instant right/wrong feedback with a short explanation
@@ -23,6 +24,7 @@ js/quiz.js                   Quiz logic and the list of quizzes in the menu
 data/hangul-questions.json   Hangul questions
 data/phrases-questions.json  Everyday phrase questions
 data/grammar-questions.json  Grammar questions
+data/grammar-tips.json       Grammar tips shown in the menu
 ```
 
 ## How to run

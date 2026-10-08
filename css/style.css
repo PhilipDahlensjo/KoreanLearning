@@ -97,6 +97,73 @@ h2 {
 }
 
 /* Menu view */
+.menu-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
+}
+
+.menu-header h1 {
+  margin-bottom: 8px;
+}
+
+/* Daily grammar tip in the top corner of the menu */
+.daily-tip {
+  flex: 0 0 220px;
+  padding: 12px 14px;
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--background);
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.tip-label {
+  margin: 0;
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tip-title {
+  margin: 4px 0 0;
+  font-weight: 700;
+}
+
+.tip-text {
+  margin: 4px 0 0;
+}
+
+.tip-examples {
+  margin-top: 8px;
+}
+
+.tip-korean {
+  margin: 0;
+  font-weight: 600;
+}
+
+.tip-english {
+  margin: 0 0 4px;
+  color: var(--muted);
+}
+
+/* On small screens the tip goes below the heading instead of in the corner */
+@media (max-width: 519px) {
+  .menu-header {
+    flex-direction: column;
+  }
+
+  .daily-tip {
+    flex-basis: auto;
+    width: 100%;
+  }
+}
+
 .menu {
   display: grid;
   gap: 12px;
