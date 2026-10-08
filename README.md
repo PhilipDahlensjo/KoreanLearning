@@ -45,6 +45,10 @@ Google Cloud Text-to-Speech by the script `generate-audio.ps1`:
 powershell -ExecutionPolicy Bypass -File .\generate-audio.ps1
 ```
 
+File names come from the Korean text, for example `이거 얼마예요?` becomes
+`audio/phrases/이거-얼마예요.mp3` (and `이거-얼마예요-slow.mp3` for the slow version).
+Only files that do not exist yet are created, so after adding a question you just run the script again.
+
 The script asks for your Google Cloud API key (or reads the `GOOGLE_TTS_API_KEY` environment
 variable). The key is never saved in the project or sent from the website. Existing files are
 skipped; add `-Force` to create them again, or `-Voice ko-KR-Wavenet-B` to try another voice.
@@ -52,7 +56,10 @@ skipped; add `-Force` to create them again, or `-Voice ko-KR-Wavenet-B` to try a
 If an audio file is missing, the quiz falls back to the browser's built-in speech
 (Web Speech API), which needs a Korean voice. Chrome and Edge have one built in.
 
-## Question format
+## Adding questions
+
+Add a new object to the `questions` array in a JSON file in `data/`. For quizzes with sound,
+run `generate-audio.ps1` afterwards to create the audio. Until then the browser voice is used.
 
 All question files use the same format:
 
@@ -60,6 +67,7 @@ All question files use the same format:
 {
   "title": "Everyday Phrases",
   "prompt": "What does this phrase mean?",
+  "audioFolder": "audio/phrases",
   "questions": [
     {
       "id": 1,
@@ -75,7 +83,8 @@ All question files use the same format:
 
 - `answer` must match one of the `options` exactly.
 - Each question needs either `korean` (text shown on screen) or `speak` (text read out loud, for listening questions).
-- Questions can have `audio` and `audioSlow` (paths to MP3 files) to show the play and slow buttons.
+- `audioFolder` (optional) turns on sound for the quiz: the play and slow buttons are shown and
+  the audio files are read from that folder.
 - `romanization`, `translation`, `note` and `prompt` (overrides the quiz prompt) are optional.
 
 To add a new quiz, create a new JSON file in `data/` and add it to the `QUIZZES` list at the top of `js/quiz.js`.

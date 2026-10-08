@@ -1,13 +1,12 @@
 {
   "title": "Everyday Phrases",
   "prompt": "What does this phrase mean?",
+  "audioFolder": "audio/phrases",
   "questions": [
     {
       "id": 1,
       "korean": "안녕하세요",
       "romanization": "annyeonghaseyo",
-      "audio": "audio/phrases/annyeonghaseyo.mp3",
-      "audioSlow": "audio/phrases/annyeonghaseyo-slow.mp3",
       "options": ["Hello", "Thank you", "Goodbye", "Excuse me"],
       "answer": "Hello",
       "note": "A polite greeting you can use at any time of day."
@@ -16,8 +15,6 @@
       "id": 2,
       "korean": "감사합니다",
       "romanization": "gamsahamnida",
-      "audio": "audio/phrases/gamsahamnida.mp3",
-      "audioSlow": "audio/phrases/gamsahamnida-slow.mp3",
       "options": ["Thank you", "I'm sorry", "You're welcome", "Nice to meet you"],
       "answer": "Thank you",
       "note": "A polite way to say thank you. 고마워요 (gomawoyo) is a bit more casual."
@@ -26,8 +23,6 @@
       "id": 3,
       "korean": "죄송합니다",
       "romanization": "joesonghamnida",
-      "audio": "audio/phrases/joesonghamnida.mp3",
-      "audioSlow": "audio/phrases/joesonghamnida-slow.mp3",
       "options": ["I'm sorry", "It's okay", "Thank you", "Please help me"],
       "answer": "I'm sorry",
       "note": "A formal apology. 미안해요 (mianhaeyo) is less formal."
@@ -36,8 +31,6 @@
       "id": 4,
       "korean": "괜찮아요",
       "romanization": "gwaenchanayo",
-      "audio": "audio/phrases/gwaenchanayo.mp3",
-      "audioSlow": "audio/phrases/gwaenchanayo-slow.mp3",
       "options": ["It's okay", "I don't know", "How are you?", "That's expensive"],
       "answer": "It's okay",
       "note": "Can also mean \"I'm fine\" or \"No, thanks\" when you decline something."
@@ -46,8 +39,6 @@
       "id": 5,
       "korean": "처음 뵙겠습니다",
       "romanization": "cheoeum boepgetseumnida",
-      "audio": "audio/phrases/cheoeum-boepgetseumnida.mp3",
-      "audioSlow": "audio/phrases/cheoeum-boepgetseumnida-slow.mp3",
       "options": ["Nice to meet you", "See you later", "Welcome", "Long time no see"],
       "answer": "Nice to meet you",
       "note": "Used when you meet someone for the first time."
@@ -56,8 +47,6 @@
       "id": 6,
       "korean": "이거 얼마예요?",
       "romanization": "igeo eolmayeyo?",
-      "audio": "audio/phrases/igeo-eolmayeyo.mp3",
-      "audioSlow": "audio/phrases/igeo-eolmayeyo-slow.mp3",
       "options": ["How much is this?", "What is this?", "Where is this?", "Can I have this?"],
       "answer": "How much is this?",
       "note": "Useful when shopping. 이거 (igeo) means \"this\"."
@@ -66,8 +55,6 @@
       "id": 7,
       "korean": "화장실이 어디예요?",
       "romanization": "hwajangsiri eodiyeyo?",
-      "audio": "audio/phrases/hwajangsiri-eodiyeyo.mp3",
-      "audioSlow": "audio/phrases/hwajangsiri-eodiyeyo-slow.mp3",
       "options": ["Where is the bathroom?", "Where is the station?", "What time is it?", "Where are you from?"],
       "answer": "Where is the bathroom?",
       "note": "어디 (eodi) means \"where\"."
@@ -76,8 +63,6 @@
       "id": 8,
       "korean": "잘 먹겠습니다",
       "romanization": "jal meokgetseumnida",
-      "audio": "audio/phrases/jal-meokgetseumnida.mp3",
-      "audioSlow": "audio/phrases/jal-meokgetseumnida-slow.mp3",
       "options": ["Thanks for the food", "I'm full", "This is delicious", "I'm hungry"],
       "answer": "Thanks for the food",
       "note": "Said before eating. After the meal you say 잘 먹었습니다 (jal meogeotseumnida)."
@@ -86,8 +71,6 @@
       "id": 9,
       "korean": "안녕히 가세요",
       "romanization": "annyeonghi gaseyo",
-      "audio": "audio/phrases/annyeonghi-gaseyo.mp3",
-      "audioSlow": "audio/phrases/annyeonghi-gaseyo-slow.mp3",
       "options": ["Goodbye", "Hello", "Good night", "See you tomorrow"],
       "answer": "Goodbye",
       "note": "Said to someone who is leaving. If you are the one leaving, say 안녕히 계세요 (annyeonghi gyeseyo)."
@@ -96,8 +79,6 @@
       "id": 10,
       "korean": "다시 한번 말해 주세요",
       "romanization": "dasi hanbeon malhae juseyo",
-      "audio": "audio/phrases/dasi-hanbeon-malhae-juseyo.mp3",
-      "audioSlow": "audio/phrases/dasi-hanbeon-malhae-juseyo-slow.mp3",
       "options": ["Please say that again", "Please speak slowly", "I don't understand", "Please write it down"],
       "answer": "Please say that again",
       "note": "주세요 (juseyo) turns a sentence into a polite request, like \"please\"."

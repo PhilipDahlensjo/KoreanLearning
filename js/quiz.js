@@ -94,24 +94,31 @@ function speak(text, rate = 1) {
   speechSynthesis.speak(utterance);
 }
 
-// Returns true if the question has a sound that can be played
+// Returns the Korean text that is read out loud for a question.
+// Listening questions have their own "speak" text, other questions read the Korean text.
+function getSoundText(question) {
+  return question.speak || question.korean;
+}
+
+// Returns true if the current quiz has sound (an "audioFolder" in its JSON file)
 function hasSound(question) {
-  return Boolean(question.speak || question.audio);
+  return Boolean(currentQuiz.audioFolder && getSoundText(question));
+}
+
+// Turns a Korean text into a file name by removing punctuation and replacing spaces
+// with dashes, for example "이거 얼마예요?" becomes "이거-얼마예요".
+// generate-audio.ps1 uses the same rule, so the names always match.
+function getAudioFileName(text) {
+  return text.replace(/[^\p{L}\p{N} ]/gu, "").trim().replace(/\s+/g, "-");
 }
 
 // Plays the sound for a question. Uses the audio file from Google TTS if it exists
 // (see generate-audio.ps1), otherwise the browser's own voice.
 function playSound(question, slow = false) {
   stopSound();
-  const file = slow ? question.audioSlow : question.audio;
+  const text = getSoundText(question);
   const rate = slow ? SLOW_RATE : 1;
-  // Listening questions have their own "speak" text, other questions read the Korean text
-  const text = question.speak || question.korean;
-
-  if (!file) {
-    speak(text, rate);
-    return;
-  }
+  const file = `${currentQuiz.audioFolder}/${getAudioFileName(text)}${slow ? "-slow" : ""}.mp3`;
 
   currentAudio = new Audio(file);
   currentAudio.play().catch((error) => {
