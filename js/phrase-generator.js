@@ -2,8 +2,9 @@
 // Google's Gemini API. The API key is typed in on the "Manage phrases" page and saved in
 // this browser only (localStorage), so it is never part of the code.
 
-// Change the model name here if Google replaces it with a newer one
-const GEMINI_MODEL = "gemini-3.6-flash";
+// Change the model name here if Google replaces it with a newer one.
+// The model must have a free tier, otherwise Gemini answers with error 402.
+const GEMINI_MODEL = "gemini-3.5-flash";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 const GEMINI_KEY_STORAGE_KEY = "korean-quiz-gemini-key";
 
@@ -44,6 +45,9 @@ English phrase: ${english}`;
 function getGeminiErrorMessage(status, details) {
   if (status === 400 && details.includes("API key")) {
     return "The Gemini API key is not valid. Check the key under \"Gemini API key\".";
+  }
+  if (status === 402) {
+    return `Gemini wants billing for "${GEMINI_MODEL}". Use a model with a free tier, or turn on billing in Google AI Studio.`;
   }
   if (status === 403) {
     return "The API key is not allowed to use Gemini. Make sure the Gemini API is enabled for it.";
