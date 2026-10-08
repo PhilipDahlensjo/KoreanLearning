@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Korean Quiz</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/phrase-store.js" defer></script>
   <script src="js/quiz.js" defer></script>
+  <script src="js/manage.js" defer></script>
 </head>
 <body>
   <main class="container">
@@ -26,6 +28,48 @@
       </div>
       <div id="menu" class="menu"></div>
       <p id="error-message" class="error hidden"></p>
+      <button id="manage-button" class="button secondary">✏️ Manage phrases</button>
+    </section>
+
+    <!-- Manage view: add, edit and delete the phrases used in the Everyday Phrases quiz -->
+    <section id="manage-view" class="view hidden">
+      <div class="quiz-header">
+        <button id="manage-back-button" class="link-button">&larr; Menu</button>
+      </div>
+      <h2>Manage phrases</h2>
+      <p class="manage-intro">
+        Add, edit or delete the phrases in the Everyday Phrases quiz. Changes are saved in this browser.
+      </p>
+
+      <form id="phrase-form" class="phrase-form">
+        <h3 id="form-title">Add a phrase</h3>
+        <label>
+          Korean
+          <input id="input-korean" type="text" lang="ko" required placeholder="물 주세요">
+        </label>
+        <label>
+          Romanization
+          <input id="input-romanization" type="text" placeholder="mul juseyo">
+        </label>
+        <label>
+          Meaning in English
+          <input id="input-meaning" type="text" required placeholder="Water, please">
+        </label>
+        <label>
+          Explanation (optional, shown after answering)
+          <textarea id="input-note" rows="2"></textarea>
+        </label>
+        <p class="form-help">The wrong answers in the quiz are picked from the other phrases.</p>
+        <div class="button-row">
+          <button id="save-button" type="submit" class="button">Add phrase</button>
+          <button id="cancel-edit-button" type="button" class="button secondary hidden">Cancel</button>
+        </div>
+      </form>
+
+      <p id="manage-message" class="manage-message hidden"></p>
+      <h3 id="phrase-count"></h3>
+      <ul id="phrase-list" class="phrase-list"></ul>
+      <button id="reset-button" class="link-button">Reset to the original phrases</button>
     </section>
 
     <!-- Quiz view: shows one question at a time -->

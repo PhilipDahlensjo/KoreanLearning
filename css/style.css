@@ -391,6 +391,141 @@ h2 {
   color: var(--primary);
 }
 
+/* Manage phrases view */
+.manage-intro {
+  color: var(--muted);
+}
+
+.phrase-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  text-align: left;
+}
+
+.phrase-form h3 {
+  margin: 0;
+}
+
+.phrase-form label {
+  display: grid;
+  gap: 4px;
+  font-weight: 600;
+}
+
+.phrase-form input,
+.phrase-form textarea {
+  padding: 10px 12px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 400;
+}
+
+.phrase-form input:focus,
+.phrase-form textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+.form-help {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.phrase-form .button {
+  margin-top: 0;
+}
+
+.manage-message {
+  margin: 16px 0 0;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  background: var(--correct-light);
+  color: var(--correct);
+  font-weight: 600;
+}
+
+.manage-message.error {
+  background: var(--wrong-light);
+  color: var(--wrong);
+}
+
+.phrase-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.phrase-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.phrase-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.phrase-korean {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.phrase-romanization {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.phrase-romanization:empty {
+  display: none;
+}
+
+.phrase-empty {
+  padding: 12px 0;
+  color: var(--muted);
+}
+
+.phrase-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.small-button {
+  padding: 6px 12px;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--primary);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.small-button:hover {
+  background: var(--background);
+}
+
+.small-button.danger {
+  border-color: var(--wrong);
+  color: var(--wrong);
+}
+
+#reset-button {
+  margin-top: 16px;
+}
+
 /* Two answer columns on wider screens */
 @media (min-width: 520px) {
   .options {

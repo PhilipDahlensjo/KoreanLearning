@@ -9,6 +9,8 @@ const QUIZZES = [
     title: "Everyday Phrases",
     description: "Useful phrases for daily life in Korea.",
     file: "data/phrases-questions.json",
+    // The phrases can be changed on the "Manage phrases" page (see phrase-store.js)
+    editable: true,
   },
   {
     title: "Grammar",
@@ -22,6 +24,9 @@ const TIPS_URL = "data/grammar-tips.json";
 
 // Speech speed for the turtle button (1 is normal speed)
 const SLOW_RATE = 0.5;
+
+// Number of questions in one round (quizzes with fewer questions use all of them)
+const QUESTIONS_PER_ROUND = 10;
 
 // Views
 const menuView = document.getElementById("menu-view");
@@ -159,7 +164,7 @@ function shuffle(items) {
 // Hides all views and shows only the given one
 function showView(view) {
   stopSound();
-  [menuView, quizView, resultView].forEach((v) => v.classList.add("hidden"));
+  document.querySelectorAll(".view").forEach((v) => v.classList.add("hidden"));
   view.classList.remove("hidden");
 }
 
@@ -241,6 +246,15 @@ async function loadQuiz(quiz) {
       throw new Error(`Request failed with status ${response.status}`);
     }
     currentQuiz = await response.json();
+    // Editable quizzes use the phrases saved in the browser instead of the ones in the file
+    if (quiz.editable) {
+      currentQuiz.questions = await getPhrases();
+    }
+    if (currentQuiz.questions.length === 0) {
+      errorMessage.textContent = "This quiz has no questions yet. Add some phrases with \"Manage phrases\".";
+      errorMessage.classList.remove("hidden");
+      return;
+    }
     startQuiz();
   } catch (error) {
     console.error("Could not load questions:", error);
@@ -254,11 +268,24 @@ async function loadQuiz(quiz) {
 
 // Resets the state and starts a new round with shuffled questions
 function startQuiz() {
-  questions = shuffle(currentQuiz.questions);
+  questions = shuffle(currentQuiz.questions).slice(0, QUESTIONS_PER_ROUND);
   currentIndex = 0;
   score = 0;
   showView(quizView);
   showQuestion();
+}
+
+// Returns the answer options for a question. If the question has no options of its own
+// (or the answer is not one of them, for example after editing a phrase), the correct
+// answer is mixed with up to three wrong answers taken from the other questions.
+function getOptions(question) {
+  if (question.options && question.options.includes(question.answer)) {
+    return question.options;
+  }
+  const wrongAnswers = currentQuiz.questions
+    .map((q) => q.answer)
+    .filter((answer, index, all) => answer !== question.answer && all.indexOf(answer) === index);
+  return [question.answer, ...shuffle(wrongAnswers).slice(0, 3)];
 }
 
 // Shows the current question and creates one button per answer option
@@ -290,7 +317,7 @@ function showQuestion() {
   nextButton.classList.add("hidden");
 
   optionsContainer.innerHTML = "";
-  shuffle(question.options).forEach((option) => {
+  shuffle(getOptions(question)).forEach((option) => {
     const button = document.createElement("button");
     button.className = "option";
     button.textContent = option;

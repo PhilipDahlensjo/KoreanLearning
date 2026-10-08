@@ -9,8 +9,9 @@ Built with plain HTML, CSS and JavaScript (no frameworks).
   1. **Hangul** – listen to a sound and pick the right letter (with replay and slow mode)
   2. **Everyday Phrases** – useful phrases with romanization and audio
   3. **Grammar** – basic particles and verb endings, with hints, explanations and audio after answering
+- **Manage phrases**: add, edit and delete your own phrases (CRUD)
 - Daily grammar tip in the menu (a new tip every day)
-- 10 questions per quiz, stored in JSON files
+- 10 random questions per round, stored in JSON files
 - Questions and answer options are shuffled every round
 - Instant right/wrong feedback with a short explanation
 - Result view with score and percentage
@@ -18,9 +19,11 @@ Built with plain HTML, CSS and JavaScript (no frameworks).
 ## Project structure
 
 ```
-index.html                   The page (menu, quiz and result views)
+index.html                   The page (menu, quiz, result and manage views)
 css/style.css                Styling
 js/quiz.js                   Quiz logic and the list of quizzes in the menu
+js/phrase-store.js           Saves, adds, edits and deletes phrases (localStorage)
+js/manage.js                 The "Manage phrases" page
 data/hangul-questions.json   Hangul questions
 data/phrases-questions.json  Everyday phrase questions
 data/grammar-questions.json  Grammar questions
@@ -35,6 +38,24 @@ The questions are loaded with `fetch()`, which does not work when `index.html` i
 directly from the file system (`file://`). Use a local server instead, for example:
 
 - **VS Code:** install the *Live Server* extension, right-click `index.html` and choose *Open with Live Server*.
+
+## Manage phrases (CRUD)
+
+The **Manage phrases** page (button in the menu) lets you change the phrases in the
+Everyday Phrases quiz:
+
+- **Create** – add a phrase with Korean, romanization, meaning and an optional explanation
+- **Read** – see all phrases in a list (and use them in the quiz)
+- **Update** – edit a phrase with the Edit button
+- **Delete** – remove a phrase with the Delete button
+
+A website cannot write to the JSON file, so changes are saved in the browser with
+`localStorage` (see `js/phrase-store.js`). The first time, the phrases from
+`data/phrases-questions.json` are used. "Reset to the original phrases" removes all changes.
+
+The wrong answers for new or edited phrases are picked from the other phrases. Each quiz
+round uses 10 random questions. New phrases are read aloud with the browser's own voice,
+since `generate-audio.ps1` only knows the phrases in the JSON file.
 
 ## Audio (Google Text-to-Speech)
 
