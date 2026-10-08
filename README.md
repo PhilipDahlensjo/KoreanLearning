@@ -8,7 +8,7 @@ Built with plain HTML, CSS and JavaScript (no frameworks).
 - Start menu with three quizzes:
   1. **Hangul** – listen to a sound and pick the right letter (with replay and slow mode)
   2. **Everyday Phrases** – useful phrases with romanization and audio
-  3. **Grammar** – basic particles and verb endings
+  3. **Grammar** – basic particles and verb endings, with explanations and audio after answering
 - Daily grammar tip in the menu (a new tip every day)
 - 10 questions per quiz, stored in JSON files
 - Questions and answer options are shuffled every round
@@ -25,7 +25,7 @@ data/hangul-questions.json   Hangul questions
 data/phrases-questions.json  Everyday phrase questions
 data/grammar-questions.json  Grammar questions
 data/grammar-tips.json       Grammar tips shown in the menu
-audio/                       MP3 files for the Hangul and phrase questions
+audio/                       MP3 files for the quiz questions
 generate-audio.ps1           Creates the MP3 files with Google Cloud Text-to-Speech
 ```
 
@@ -38,7 +38,7 @@ directly from the file system (`file://`). Use a local server instead, for examp
 
 ## Audio (Google Text-to-Speech)
 
-The Hangul and Everyday Phrases quizzes play MP3 files from `audio/`. They are created once with
+All three quizzes play MP3 files from `audio/`. They are created once with
 Google Cloud Text-to-Speech by the script `generate-audio.ps1`:
 
 ```
@@ -85,6 +85,9 @@ All question files use the same format:
 - Each question needs either `korean` (text shown on screen) or `speak` (text read out loud, for listening questions).
 - `audioFolder` (optional) turns on sound for the quiz: the play and slow buttons are shown and
   the audio files are read from that folder.
+- `playAfterAnswer` (optional, with `audioFolder`) plays the sound only after answering, so it does
+  not give away the answer. The grammar quiz uses this and reads the sentence with the blank (`___`)
+  filled in. A question can set `audioText` to read something else instead.
 - `romanization`, `translation`, `note` and `prompt` (overrides the quiz prompt) are optional.
 
 To add a new quiz, create a new JSON file in `data/` and add it to the `QUIZZES` list at the top of `js/quiz.js`.

@@ -68,8 +68,11 @@ foreach ($file in $questionFiles) {
   }
 
   foreach ($question in $quiz.questions) {
-    # Listening questions have their own "speak" text, other questions read the Korean text
-    $text = if ($question.speak) { $question.speak } else { $question.korean }
+    # Same rule as getSoundText() in js/quiz.js: "speak", then "audioText", then the
+    # Korean text with the blank (___) filled in with the answer
+    $text = if ($question.speak) { $question.speak }
+            elseif ($question.audioText) { $question.audioText }
+            elseif ($question.korean) { $question.korean.Replace("___", $question.answer) }
     if (-not $text) {
       continue
     }

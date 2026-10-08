@@ -94,10 +94,16 @@ function speak(text, rate = 1) {
   speechSynthesis.speak(utterance);
 }
 
+// Returns the Korean text with the blank (___) replaced by the correct answer
+function getCompletedKorean(question) {
+  return (question.korean || "").replace("___", question.answer);
+}
+
 // Returns the Korean text that is read out loud for a question.
-// Listening questions have their own "speak" text, other questions read the Korean text.
+// Listening questions have their own "speak" text, and a question can set "audioText"
+// to read something else. Otherwise the Korean text is read, with the blank filled in.
 function getSoundText(question) {
-  return question.speak || question.korean;
+  return question.speak || question.audioText || getCompletedKorean(question);
 }
 
 // Returns true if the current quiz has sound (an "audioFolder" in its JSON file)
@@ -267,7 +273,9 @@ function showQuestion() {
   romanizationText.textContent = question.romanization || "";
   translationText.textContent = question.translation ? `"${question.translation}"` : "";
 
-  audioControls.classList.toggle("hidden", !hasSound(question));
+  // Some quizzes (like grammar) only play the sound after answering, so it does not give away the answer
+  const playNow = hasSound(question) && !currentQuiz.playAfterAnswer;
+  audioControls.classList.toggle("hidden", !playNow);
   audioWarning.classList.add("hidden");
   optionsContainer.classList.toggle("large-options", isListening);
 
@@ -283,7 +291,7 @@ function showQuestion() {
     optionsContainer.appendChild(button);
   });
 
-  if (hasSound(question)) {
+  if (playNow) {
     playSound(question);
   }
 }
@@ -311,6 +319,15 @@ function checkAnswer(selectedButton, question) {
     : `Wrong. The correct answer is "${question.answer}".`;
   feedbackNote.textContent = question.note || "";
   feedbackBox.className = isCorrect ? "feedback correct" : "feedback wrong";
+
+  // Show the full sentence with the blank filled in
+  if (question.korean) {
+    koreanText.textContent = getCompletedKorean(question);
+  }
+  if (hasSound(question) && currentQuiz.playAfterAnswer) {
+    audioControls.classList.remove("hidden");
+    playSound(question);
+  }
 
   const isLastQuestion = currentIndex === questions.length - 1;
   nextButton.textContent = isLastQuestion ? "See result" : "Next";
