@@ -47,6 +47,8 @@ const slowButton = document.getElementById("slow-button");
 const audioWarning = document.getElementById("audio-warning");
 const romanizationText = document.getElementById("romanization");
 const translationText = document.getElementById("translation");
+const hintButton = document.getElementById("hint-button");
+const hintText = document.getElementById("hint-text");
 const optionsContainer = document.getElementById("options");
 const feedbackBox = document.getElementById("feedback");
 const feedbackText = document.getElementById("feedback-text");
@@ -273,6 +275,11 @@ function showQuestion() {
   romanizationText.textContent = question.romanization || "";
   translationText.textContent = question.translation ? `"${question.translation}"` : "";
 
+  // The hint is hidden until the user clicks the hint button
+  hintText.textContent = question.hint || "";
+  hintText.classList.add("hidden");
+  hintButton.classList.toggle("hidden", !question.hint);
+
   // Some quizzes (like grammar) only play the sound after answering, so it does not give away the answer
   const playNow = hasSound(question) && !currentQuiz.playAfterAnswer;
   audioControls.classList.toggle("hidden", !playNow);
@@ -313,6 +320,8 @@ function checkAnswer(selectedButton, question) {
   if (!isCorrect) {
     selectedButton.classList.add("wrong");
   }
+  // The hint is not needed after answering
+  hintButton.classList.add("hidden");
 
   feedbackText.textContent = isCorrect
     ? "Correct!"
@@ -366,6 +375,10 @@ function showResult() {
 
 quitButton.addEventListener("click", () => showView(menuView));
 nextButton.addEventListener("click", nextQuestion);
+hintButton.addEventListener("click", () => {
+  hintText.classList.remove("hidden");
+  hintButton.classList.add("hidden");
+});
 playButton.addEventListener("click", () => playSound(questions[currentIndex]));
 slowButton.addEventListener("click", () => playSound(questions[currentIndex], true));
 restartButton.addEventListener("click", startQuiz);

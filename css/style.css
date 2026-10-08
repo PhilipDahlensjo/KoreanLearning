@@ -253,6 +253,20 @@ h2 {
   display: none;
 }
 
+/* Hint button and the hint text shown after clicking it */
+.hint-button {
+  margin-top: 12px;
+}
+
+.hint-text {
+  margin: 12px 0 0;
+  padding: 10px 14px;
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--background);
+  text-align: left;
+}
+
 /* Play and slow buttons for listening questions */
 .audio-controls {
   display: flex;

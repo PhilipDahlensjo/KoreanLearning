@@ -8,7 +8,7 @@ Built with plain HTML, CSS and JavaScript (no frameworks).
 - Start menu with three quizzes:
   1. **Hangul** – listen to a sound and pick the right letter (with replay and slow mode)
   2. **Everyday Phrases** – useful phrases with romanization and audio
-  3. **Grammar** – basic particles and verb endings, with explanations and audio after answering
+  3. **Grammar** – basic particles and verb endings, with hints, explanations and audio after answering
 - Daily grammar tip in the menu (a new tip every day)
 - 10 questions per quiz, stored in JSON files
 - Questions and answer options are shuffled every round
@@ -88,6 +88,7 @@ All question files use the same format:
 - `playAfterAnswer` (optional, with `audioFolder`) plays the sound only after answering, so it does
   not give away the answer. The grammar quiz uses this and reads the sentence with the blank (`___`)
   filled in. A question can set `audioText` to read something else instead.
-- `romanization`, `translation`, `note` and `prompt` (overrides the quiz prompt) are optional.
+- `romanization`, `translation`, `hint` (shown with the "Show hint" button), `note` and `prompt`
+  (overrides the quiz prompt) are optional.
 
 To add a new quiz, create a new JSON file in `data/` and add it to the `QUIZZES` list at the top of `js/quiz.js`.
