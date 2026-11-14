@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KoreanLearning</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/phrase-store.js" defer></script>
+  <script src="js/romanize.js" defer></script>
+  <script src="js/translator.js" defer></script>
+  <script src="js/quiz.js" defer></script>
+  <script src="js/manage.js" defer></script>
+</head>
+<body>
+  <main class="container">
+    <!-- Menu view: shown when the page loads, lets the user pick a quiz -->
+    <section id="menu-view" class="view">
+      <div class="menu-header">
+        <div>
+          <h1>Learn Korean</h1>
+          <p>Choose a quiz to start.</p>
+        </div>
+        <!-- Daily grammar tip: filled in by JavaScript, stays hidden if the tips cannot be loaded -->
+        <aside id="daily-tip" class="daily-tip hidden">
+          <p class="tip-label">Daily grammar tip</p>
+          <p id="tip-title" class="tip-title"></p>
+          <p id="tip-text" class="tip-text"></p>
+          <div id="tip-examples" class="tip-examples"></div>
+        </aside>
+      </div>
+      <div id="menu" class="menu"></div>
+      <p id="error-message" class="error hidden"></p>
+      <button id="manage-button" class="button secondary">✏️ Manage phrases</button>
+    </section>
+
+    <!-- Manage view: add, edit and delete the phrases used in the Everyday Phrases quiz -->
+    <section id="manage-view" class="view hidden">
+      <div class="quiz-header">
+        <button id="manage-back-button" class="link-button">&larr; Menu</button>
+      </div>
+      <h2>Manage phrases</h2>
+      <p class="manage-intro">
+        Add, edit or delete the phrases in the Everyday Phrases quiz. Changes are saved in this browser.
+      </p>
+
+      <form id="phrase-form" class="phrase-form">
+        <h3 id="form-title">Add a phrase</h3>
+        <label>
+          Meaning in English
+          <input id="input-meaning" type="text" required placeholder="Water, please">
+        </label>
+        <div class="translate-row">
+          <button id="translate-button" type="button" class="small-button">🌐 Translate to Korean</button>
+          <span class="form-help">
+            Fills in Korean and romanization with the browser's built-in translator (Chrome).
+            Check the result before saving.
+          </span>
+        </div>
+        <label>
+          Korean
+          <input id="input-korean" type="text" lang="ko" required placeholder="물 주세요">
+        </label>
+        <label>
+          Romanization
+          <input id="input-romanization" type="text" placeholder="mul juseyo">
+        </label>
+        <label>
+          Explanation (optional, shown after answering)
+          <textarea id="input-note" rows="2"></textarea>
+        </label>
+        <p class="form-help">The wrong answers in the quiz are picked from the other phrases.</p>
+        <div class="button-row">
+          <button id="save-button" type="submit" class="button">Add phrase</button>
+          <button id="cancel-edit-button" type="button" class="button secondary hidden">Cancel</button>
+        </div>
+      </form>
+
+      <p id="manage-message" class="manage-message hidden"></p>
+      <h3 id="phrase-count"></h3>
+      <ul id="phrase-list" class="phrase-list"></ul>
+      <button id="reset-button" class="link-button">Reset to the original phrases</button>
+    </section>
+
+    <!-- Quiz view: shows one question at a time -->
+    <section id="quiz-view" class="view hidden">
+      <div class="quiz-header">
+        <button id="quit-button" class="link-button">&larr; Menu</button>
+        <p id="progress" class="progress"></p>
+      </div>
+      <p id="prompt" class="prompt"></p>
+      <p id="korean" class="korean" lang="ko"></p>
+      <!-- Audio controls: only shown for listening questions -->
+      <div id="audio-controls" class="audio-controls hidden">
+        <button id="play-button" class="audio-button" title="Play the sound again">🔊 Play again</button>
+        <button id="slow-button" class="audio-button" title="Play the sound slowly">🐢 Slower</button>
+      </div>
+      <p id="audio-warning" class="audio-warning hidden">
+        No Korean voice was found in this browser, so the sound may be wrong. Try Chrome or Edge.
+      </p>
+      <p id="romanization" class="romanization"></p>
+      <p id="translation" class="translation"></p>
+      <!-- Hint: only shown for questions that have one -->
+      <button id="hint-button" class="link-button hint-button hidden">💡 Show hint</button>
+      <p id="hint-text" class="hint-text hidden"></p>
+      <div id="options" class="options"></div>
+      <div id="feedback" class="feedback hidden">
+        <p id="feedback-text" class="feedback-text"></p>
+        <p id="feedback-note" class="feedback-note"></p>
+      </div>
+      <button id="next-button" class="button hidden">Next</button>
+    </section>
+
+    <!-- Result view: shown when all questions are answered -->
+    <section id="result-view" class="view hidden">
+      <h2 id="result-title"></h2>
+      <p id="score" class="score"></p>
+      <p id="result-message"></p>
+      <div class="button-row">
+        <button id="restart-button" class="button">Try again</button>
+        <button id="menu-button" class="button secondary">Back to menu</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

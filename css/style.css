@@ -1,0 +1,546 @@
+/* Colors and shared values */
+:root {
+  --background: #f4f6fb;
+  --card: #ffffff;
+  --text: #1f2933;
+  --muted: #6b7280;
+  --primary: #3b5bdb;
+  --primary-hover: #2f4ac0;
+  --border: #d9dee8;
+  --correct: #2f9e44;
+  --correct-light: #e6f6ea;
+  --wrong: #e03131;
+  --wrong-light: #fdeaea;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: var(--background);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  line-height: 1.5;
+}
+
+/* The white card that holds all views */
+.container {
+  width: 100%;
+  max-width: 560px;
+  padding: 32px 24px;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+h1,
+h2 {
+  margin-top: 0;
+}
+
+/* Used by JavaScript to show and hide elements */
+.hidden {
+  display: none !important;
+}
+
+/* Main buttons (Start, Next, Try again) */
+.button {
+  margin-top: 16px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Lighter button style, used for "Back to menu" */
+.button.secondary {
+  background: var(--card);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.button.secondary:hover {
+  background: var(--background);
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.error {
+  color: var(--wrong);
+}
+
+/* Menu view */
+.menu-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
+}
+
+.menu-header h1 {
+  margin-bottom: 8px;
+}
+
+/* Daily grammar tip in the top corner of the menu */
+.daily-tip {
+  flex: 0 0 220px;
+  padding: 12px 14px;
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--background);
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.tip-label {
+  margin: 0;
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tip-title {
+  margin: 4px 0 0;
+  font-weight: 700;
+}
+
+.tip-text {
+  margin: 4px 0 0;
+}
+
+.tip-examples {
+  margin-top: 8px;
+}
+
+.tip-korean {
+  margin: 0;
+  font-weight: 600;
+}
+
+.tip-english {
+  margin: 0 0 4px;
+  color: var(--muted);
+}
+
+/* On small screens the tip goes below the heading instead of in the corner */
+@media (max-width: 519px) {
+  .menu-header {
+    flex-direction: column;
+  }
+
+  .daily-tip {
+    flex-basis: auto;
+    width: 100%;
+  }
+}
+
+.menu {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.menu-option {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 20px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-option:hover:not(:disabled) {
+  border-color: var(--primary);
+}
+
+.menu-option:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.menu-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.menu-description {
+  color: var(--muted);
+}
+
+/* Quiz view */
+.quiz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.link-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--primary);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+.progress {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.prompt {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.korean {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.translation {
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+/* Optional texts are hidden when a question does not use them */
+.korean:empty,
+.romanization:empty,
+.translation:empty {
+  display: none;
+}
+
+/* Hint button and the hint text shown after clicking it */
+.hint-button {
+  margin-top: 12px;
+}
+
+.hint-text {
+  margin: 12px 0 0;
+  padding: 10px 14px;
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--background);
+  text-align: left;
+}
+
+/* Play and slow buttons for listening questions */
+.audio-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.audio-button {
+  padding: 12px 20px;
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--primary);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.audio-button:hover {
+  background: var(--background);
+}
+
+.audio-warning {
+  color: var(--wrong);
+  font-size: 0.9rem;
+}
+
+/* Bigger answer buttons when the options are single Korean letters */
+.options.large-options {
+  grid-template-columns: 1fr 1fr;
+}
+
+.large-options .option {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.romanization {
+  margin-top: 4px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.option {
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.option:hover:not(:disabled) {
+  border-color: var(--primary);
+}
+
+.option:disabled {
+  cursor: default;
+}
+
+.option.correct {
+  border-color: var(--correct);
+  background: var(--correct-light);
+}
+
+.option.wrong {
+  border-color: var(--wrong);
+  background: var(--wrong-light);
+}
+
+/* Feedback shown after answering */
+.feedback {
+  margin-top: 20px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  text-align: left;
+}
+
+.feedback.correct {
+  background: var(--correct-light);
+}
+
+.feedback.wrong {
+  background: var(--wrong-light);
+}
+
+.feedback-text {
+  margin: 0;
+  font-weight: 600;
+}
+
+.feedback.correct .feedback-text {
+  color: var(--correct);
+}
+
+.feedback.wrong .feedback-text {
+  color: var(--wrong);
+}
+
+.feedback-note {
+  margin: 4px 0 0;
+}
+
+.feedback-note:empty {
+  display: none;
+}
+
+/* Result view */
+.score {
+  margin: 8px 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Manage phrases view */
+.manage-intro {
+  color: var(--muted);
+}
+
+.phrase-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  text-align: left;
+}
+
+.phrase-form h3 {
+  margin: 0;
+}
+
+.phrase-form label {
+  display: grid;
+  gap: 4px;
+  font-weight: 600;
+}
+
+.phrase-form input,
+.phrase-form textarea {
+  padding: 10px 12px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 400;
+}
+
+.phrase-form input:focus,
+.phrase-form textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+.form-help {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.phrase-form .button {
+  margin-top: 0;
+}
+
+.translate-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.small-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.manage-message {
+  margin: 16px 0 0;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  background: var(--correct-light);
+  color: var(--correct);
+  font-weight: 600;
+}
+
+.manage-message.error {
+  background: var(--wrong-light);
+  color: var(--wrong);
+}
+
+.phrase-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.phrase-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.phrase-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.phrase-korean {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.phrase-romanization {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.phrase-romanization:empty {
+  display: none;
+}
+
+.phrase-empty {
+  padding: 12px 0;
+  color: var(--muted);
+}
+
+.phrase-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.small-button {
+  padding: 6px 12px;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--primary);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.small-button:hover {
+  background: var(--background);
+}
+
+.small-button.danger {
+  border-color: var(--wrong);
+  color: var(--wrong);
+}
+
+#reset-button {
+  margin-top: 16px;
+}
+
+/* Two answer columns on wider screens */
+@media (min-width: 520px) {
+  .options {
+    grid-template-columns: 1fr 1fr;
+  }
+}

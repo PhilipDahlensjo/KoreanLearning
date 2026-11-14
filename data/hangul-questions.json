@@ -1,0 +1,80 @@
+{
+  "title": "Hangul",
+  "prompt": "Listen. Which consonant do you hear? (It is played together with ㅏ.)",
+  "audioFolder": "audio/hangul",
+  "questions": [
+    {
+      "id": 1,
+      "speak": "가",
+      "options": ["ㄱ", "ㄷ", "ㅂ", "ㄴ"],
+      "answer": "ㄱ",
+      "note": "You heard 가 = ㄱ + ㅏ. ㄱ sounds somewhere between g and k."
+    },
+    {
+      "id": 2,
+      "speak": "나",
+      "options": ["ㄴ", "ㅁ", "ㄹ", "ㄱ"],
+      "answer": "ㄴ",
+      "note": "You heard 나 = ㄴ + ㅏ. ㄴ sounds like the n in \"no\"."
+    },
+    {
+      "id": 3,
+      "speak": "다",
+      "options": ["ㄷ", "ㄱ", "ㅂ", "ㅅ"],
+      "answer": "ㄷ",
+      "note": "You heard 다 = ㄷ + ㅏ. ㄷ sounds somewhere between d and t."
+    },
+    {
+      "id": 4,
+      "speak": "라",
+      "options": ["ㄹ", "ㄴ", "ㄷ", "ㅁ"],
+      "answer": "ㄹ",
+      "note": "You heard 라 = ㄹ + ㅏ. ㄹ sounds like a soft r between vowels and like l at the end of a syllable."
+    },
+    {
+      "id": 5,
+      "speak": "마",
+      "options": ["ㅁ", "ㄴ", "ㅂ", "ㅇ"],
+      "answer": "ㅁ",
+      "note": "You heard 마 = ㅁ + ㅏ. ㅁ sounds like the m in \"mom\"."
+    },
+    {
+      "id": 6,
+      "speak": "바",
+      "options": ["ㅂ", "ㅁ", "ㄷ", "ㄱ"],
+      "answer": "ㅂ",
+      "note": "You heard 바 = ㅂ + ㅏ. ㅂ sounds somewhere between b and p."
+    },
+    {
+      "id": 7,
+      "speak": "사",
+      "options": ["ㅅ", "ㅈ", "ㅎ", "ㅊ"],
+      "answer": "ㅅ",
+      "note": "You heard 사 = ㅅ + ㅏ. ㅅ sounds like s. Before ㅣ (i) it sounds more like sh, as in 시 (si)."
+    },
+    {
+      "id": 8,
+      "prompt": "Listen. Which vowel do you hear?",
+      "speak": "아",
+      "options": ["ㅏ", "ㅓ", "ㅗ", "ㅜ"],
+      "answer": "ㅏ",
+      "note": "You heard 아 = ㅇ + ㅏ. ㅇ is silent at the start of a syllable, so you only hear the vowel. ㅏ sounds like the a in \"father\"."
+    },
+    {
+      "id": 9,
+      "prompt": "Listen. Which vowel do you hear?",
+      "speak": "어",
+      "options": ["ㅓ", "ㅏ", "ㅜ", "ㅡ"],
+      "answer": "ㅓ",
+      "note": "You heard 어 = ㅇ + ㅓ. ㅓ sounds like the o in \"son\"."
+    },
+    {
+      "id": 10,
+      "prompt": "Listen. Which vowel do you hear?",
+      "speak": "오",
+      "options": ["ㅗ", "ㅜ", "ㅓ", "ㅏ"],
+      "answer": "ㅗ",
+      "note": "You heard 오 = ㅇ + ㅗ. ㅗ sounds like the o in \"go\", but shorter."
+    }
+  ]
+}

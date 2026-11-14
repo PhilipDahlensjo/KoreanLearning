@@ -1,0 +1,102 @@
+{
+  "title": "Grammar",
+  "prompt": "Which option completes the sentence?",
+  "audioFolder": "audio/grammar",
+  "playAfterAnswer": true,
+  "questions": [
+    {
+      "id": 1,
+      "korean": "저___ 학생이에요.",
+      "translation": "I am a student.",
+      "options": ["는", "은", "이", "를"],
+      "answer": "는",
+      "hint": "Is 저 the topic, the subject or the object? And does 저 end in a vowel or a consonant?",
+      "note": "저 (I) is the topic of the sentence, so it takes the topic particle 은/는. 저 ends in a vowel, so it is 는. 은 is the same particle but used after a consonant, like 선생님은. 이 marks the subject and 를 marks the object, so they do not fit here."
+    },
+    {
+      "id": 2,
+      "korean": "책___ 있어요.",
+      "translation": "I have a book.",
+      "options": ["이", "가", "를", "에"],
+      "answer": "이",
+      "hint": "Which particle goes with 있어요 (there is / to have)? Does 책 end in a vowel or a consonant?",
+      "note": "있어요 (there is / to have) takes the subject particle 이/가 for the thing you have. 책 ends in a consonant (ㄱ), so it is 이. After a vowel it is 가, like 친구가 있어요 (I have a friend). 를 is wrong because 있어요 does not take an object."
+    },
+    {
+      "id": 3,
+      "korean": "물___ 마셔요.",
+      "translation": "I drink water.",
+      "options": ["을", "를", "이", "에"],
+      "answer": "을",
+      "hint": "Water is the thing you drink, so it is the object. Does 물 end in a vowel or a consonant?",
+      "note": "마셔요 (drink) needs an object: what do you drink? Objects take 을/를. 물 ends in a consonant (ㄹ), so it is 을. After a vowel it is 를, like 커피를 마셔요."
+    },
+    {
+      "id": 4,
+      "korean": "커피___ 좋아해요.",
+      "translation": "I like coffee.",
+      "options": ["를", "을", "가", "에"],
+      "answer": "를",
+      "hint": "Coffee is the thing you like, so it is the object. Does 커피 end in a vowel or a consonant?",
+      "note": "좋아해요 (to like) takes an object with 을/를. 커피 ends in a vowel, so it is 를. Be careful: the similar word 좋아요 (is good) takes 이/가 instead, as in 커피가 좋아요."
+    },
+    {
+      "id": 5,
+      "korean": "학교___ 가요.",
+      "translation": "I go to school.",
+      "options": ["에", "이", "은", "과"],
+      "answer": "에",
+      "hint": "You are going somewhere. Which particle marks where you are going?",
+      "note": "With verbs of movement like 가요 (go) and 와요 (come), 에 marks where you are going. The other options are wrong forms after a vowel: it would be 가, 는 and 와, and they do not mean \"to\" anyway."
+    },
+    {
+      "id": 6,
+      "korean": "도서관___ 공부해요.",
+      "translation": "I study at the library.",
+      "options": ["에서", "에", "를", "가"],
+      "answer": "에서",
+      "hint": "Studying is an action. Which particle marks the place where an action happens?",
+      "note": "공부해요 (study) is an action, so the place where it happens takes 에서. 에 is for where you go or where something is, as in 도서관에 가요 (I go to the library)."
+    },
+    {
+      "id": 7,
+      "korean": "이것은 사과___.",
+      "translation": "This is an apple.",
+      "options": ["예요", "이에요", "있어요", "해요"],
+      "answer": "예요",
+      "hint": "Does 사과 end in a vowel or a consonant?",
+      "note": "사과 (apple) ends in a vowel, so \"to be\" is 예요. 이에요 is used after a consonant. 있어요 means \"there is\" and 해요 means \"do\", so they do not fit."
+    },
+    {
+      "id": 8,
+      "korean": "저는 선생님___.",
+      "translation": "I am a teacher.",
+      "options": ["이에요", "예요", "이요", "있어요"],
+      "answer": "이에요",
+      "hint": "Does 선생님 end in a vowel or a consonant?",
+      "note": "선생님 ends in a consonant (ㅁ), so \"to be\" is 이에요. 예요 is only used after a vowel, as in 의사예요 (I am a doctor)."
+    },
+    {
+      "id": 9,
+      "prompt": "Which is the polite present tense?",
+      "korean": "가다 → ___",
+      "audioText": "가다. 가요.",
+      "translation": "to go → I go",
+      "options": ["가요", "가아요", "가어요", "갔어요"],
+      "answer": "가요",
+      "hint": "The stem is 가. Its vowel is ㅏ, so which ending does it take, and what happens when two ㅏ meet?",
+      "note": "Remove 다 to get the stem 가. Its vowel is ㅏ, so you add 아요. Two ㅏ in a row merge into one, so 가 + 아요 becomes 가요, not 가아요. 갔어요 is the past tense (I went)."
+    },
+    {
+      "id": 10,
+      "prompt": "Which is the polite past tense?",
+      "korean": "먹다 → ___",
+      "audioText": "먹다. 먹었어요.",
+      "translation": "to eat → I ate",
+      "options": ["먹었어요", "먹어요", "먹았어요", "먹을 거예요"],
+      "answer": "먹었어요",
+      "hint": "The stem is 먹. Is its vowel ㅏ or ㅗ, or something else?",
+      "note": "Remove 다 to get the stem 먹. Its vowel is ㅓ, not ㅏ or ㅗ, so the past tense ending is 었어요: 먹 + 었어요 = 먹었어요. 먹았어요 is wrong because 았어요 is only used after ㅏ or ㅗ. 먹어요 is present tense and 먹을 거예요 is future."
+    }
+  ]
+}
