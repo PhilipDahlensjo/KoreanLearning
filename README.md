@@ -7,6 +7,12 @@ from English.
 
 Built with plain HTML, CSS and JavaScript – no frameworks, no backend.
 
+### [▶ Try it live](https://philipdahlensjo.github.io/KoreanLearning/)
+
+[![The KoreanLearning start menu](poster/screenshots/menu.png)](https://philipdahlensjo.github.io/KoreanLearning/)
+
+Works best in Chrome or Edge on a computer, which have a built-in Korean voice and translator.
+
 ## Features
 
 - Start menu with three quizzes:
@@ -40,8 +46,10 @@ generate-audio.ps1           Creates the MP3 files with Google Cloud Text-to-Spe
 
 ## How to run
 
-The questions are loaded with `fetch()`, which does not work when `index.html` is opened
-directly from the file system (`file://`). Use a local server instead, for example:
+The easiest way is the [live version](https://philipdahlensjo.github.io/KoreanLearning/) on GitHub Pages.
+
+To run it on your own computer: the questions are loaded with `fetch()`, which does not work when
+`index.html` is opened directly from the file system (`file://`). Use a local server instead, for example:
 
 - **VS Code:** install the *Live Server* extension, right-click `index.html` and choose *Open with Live Server*.
 
