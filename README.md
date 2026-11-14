@@ -1,7 +1,11 @@
-# Korean Quiz
+# KoreanLearning
 
-A simple website for learning Korean through multiple-choice quizzes.
-Built with plain HTML, CSS and JavaScript (no frameworks).
+A website for learning Korean through short multiple-choice quizzes on Hangul, everyday
+phrases and basic grammar. The quizzes have Korean audio (with a slow mode) and explain
+the answer after you pick one, and you can add your own phrases with automatic translation
+from English.
+
+Built with plain HTML, CSS and JavaScript – no frameworks, no backend.
 
 ## Features
 
